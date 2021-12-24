@@ -1,0 +1,80 @@
+name: omf_netflix
+description: A new Flutter project.
+
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  chewie: ^1.2.2
+  circular_profile_avatar: ^2.0.5
+  connectivity: ^3.0.6
+  cupertino_icons: ^1.0.2
+  device_info_plus: ^3.1.0
+  dio:
+  # dev_dependencies:
+  email_validator: ^2.0.1
+  file_picker: ^4.2.5
+  flowder: ^0.2.0
+  flutter:
+    sdk: flutter
+  flutter_lints: ^1.0.0
+  flutter_screenutil: ^5.0.0-nullsafety.11
+  flutter_secure_storage: ^4.2.1
+  flutter_staggered_grid_view: ^0.4.1
+  flutter_test:
+    sdk: flutter
+  fluttericon: ^2.0.0
+  get: ^4.1.4
+  google_fonts: ^2.0.0
+  hive_flutter: ^1.1.0
+  http: ^0.13.3
+  image_picker: ^0.8.4+4
+  internet_connection_checker: ^0.0.1+1
+  intl: ^0.17.0
+  intl_phone_number_input: ^0.7.0+2
+  logger: ^1.0.0
+  open_file: ^3.2.1
+  path_provider: ^2.0.6
+  percent_indicator: ^3.4.0
+  pin_code_fields: ^7.3.0
+  readmore: ^2.1.0
+  scrollable_positioned_list: ^0.2.3
+  share: ^2.0.4
+  step_progress_indicator: ^1.0.1
+  system_info: ^1.0.1
+  url_launcher: ^6.0.10
+  video_player: ^2.2.5
+  video_thumbnail: ^0.4.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/
+    - assets/images/movies/
+  fonts:
+    - family: Product-Sans
+      fonts:
+        - asset: assets/fonts/product-sans/Product-Sans-Regular.ttf
+    - family: Product-Sans-Italic
+      fonts:
+        - asset: assets/fonts/product-sans/Product-Sans-Italic.ttf
+          style: italic
+    - family: Product-Sans-Bold
+      fonts:
+        - asset: assets/fonts/product-sans/Product-Sans-Bold.ttf
+          weight: 700
+    - family: Product-Sans-Bold-Italic
+      fonts:
+        - asset: assets/fonts/product-sans/Product-Sans-Bold-Italic.ttf
+          style: italic
+          weight: 700
+    - family: Oswald
+      fonts:
+        - asset: assets/fonts/oswald/Oswald-Regular.ttf
+    - family: Oswald-Bold
+      fonts:
+        - asset: assets/fonts/oswald/Oswald-Bold.ttf
+          weight: 700
