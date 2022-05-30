@@ -50,7 +50,7 @@ class WebAppBar extends StatelessWidget {
                       ? Dimens.box0
                       : GestureDetector(
                           onTap: () {
-                            Get.bottomSheet(
+                            Get.bottomSheet<void>(
                               const DropdownShows(),
                               isScrollControlled: true,
                               barrierColor: ColorsValue.blackColor,
@@ -194,8 +194,8 @@ class WebAppBar extends StatelessWidget {
                           ),
                         )
                       : ElevatedButton(
-                          onPressed: () async {
-                            await loginDialog(
+                          onPressed: () {
+                            loginDialog(
                               context,
                               // Get.find<LoginController>(),
                             );
@@ -239,12 +239,10 @@ class WebAppBar extends StatelessWidget {
         ),
         elevation: 0.0,
         backgroundColor: Colors.transparent,
-        child: LoginDialogContent(
+        child: const LoginDialogContent(
             // controller: controller,
             ),
       ),
     );
   }
-
- 
 }

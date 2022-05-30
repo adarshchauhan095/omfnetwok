@@ -7,9 +7,13 @@ class LoginOtpView extends StatelessWidget {
   static const loginOtpViewKey = Key('login-otp-view-key');
   static const loginOtpWidgetKey = Key('login-otp-widget-key');
   @override
-  Widget build(BuildContext context) => Scaffold(
-        key: loginOtpViewKey,
-        backgroundColor: ColorsValue.scaffoldBackgroundColor,
-        body: LoginOtpWidget(key: loginOtpWidgetKey,),
+  Widget build(BuildContext context) => SafeArea(
+        child: Scaffold(
+          key: loginOtpViewKey,
+          backgroundColor: ColorsValue.scaffoldBackgroundColor,
+          body: LoginOtpWidget(
+            key: loginOtpWidgetKey,
+          ),
+        ),
       );
 }

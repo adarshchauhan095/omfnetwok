@@ -11,10 +11,10 @@ abstract class Variables {
     () {
       Get
         ..lazyPut(
-          () => CommonService(),
+          CommonService.new,
         )
         ..lazyPut(
-          () => ConnectHelper(),
+          ConnectHelper.new,
         )
         ..lazyPut(
           () => DataRepository(
@@ -25,7 +25,7 @@ abstract class Variables {
           ),
         )
         ..lazyPut(
-          () => DeviceRepository(),
+          DeviceRepository.new,
         )
         ..lazyPut(
           () => Repository(
@@ -46,7 +46,7 @@ abstract class Variables {
   static final splashBinding = BindingsBuilder<dynamic>(
     () {
       Get.lazyPut(
-        () => SplashController(Get.put(SplashPresenter())),
+        () => SplashController(Get.put(SplashPresenter(AuthUseCases(Get.find())))),
       );
     },
   );
@@ -54,7 +54,7 @@ abstract class Variables {
   static final signUpController = BindingsBuilder<dynamic>(
     () {
       Get.lazyPut(
-        () => SignupController(Get.put(SignupPresenter())),
+        () => SignupController(Get.put(SignupPresenter(AuthUseCases(Get.find())))),
       );
     },
   );
@@ -62,7 +62,7 @@ abstract class Variables {
   static final loginBinding = BindingsBuilder<dynamic>(
     () {
       Get.lazyPut(
-        () => LoginController(Get.put(LoginPresenter())),
+        () => LoginController(Get.put(LoginPresenter(AuthUseCases(Get.find())))),
       );
     },
   );
@@ -70,7 +70,7 @@ abstract class Variables {
   static final loginOtpBinding = BindingsBuilder<dynamic>(
     () {
       Get.lazyPut(
-        () => LoginOtpController(Get.put(LoginOtpPresenter())),
+        () => LoginOtpController(Get.put(LoginOtpPresenter(Get.put(AuthUseCases(Get.find()))))),
       );
     },
   );
@@ -78,7 +78,7 @@ abstract class Variables {
   static final homeBinding = BindingsBuilder<dynamic>(
     () {
       Get.lazyPut(
-        () => HomeController(Get.put(HomePresenter())),
+        () => HomeController(Get.put(HomePresenter(Get.put(AuthUseCases(Get.find()))))),
       );
     },
   );
@@ -86,7 +86,7 @@ abstract class Variables {
   static final forgotPasswordBinding = BindingsBuilder<dynamic>(
     () {
       Get.lazyPut(
-        () => ForgotPasswordController(Get.put(ForgotPasswordPresenter())),
+        () => ForgotPasswordController(Get.put(ForgotPasswordPresenter(AuthUseCases(Get.find())))),
       );
     },
   );
@@ -110,7 +110,7 @@ abstract class Variables {
   static final accountBinding = BindingsBuilder<dynamic>(
     () {
       Get.lazyPut(
-        () => AccountController(Get.put(AccountPresenter())),
+        () => AccountController(Get.put(AccountPresenter(AuthUseCases(Get.find())))),
       );
     },
   );
@@ -118,7 +118,7 @@ abstract class Variables {
   static final appsettingsBinding = BindingsBuilder<dynamic>(
     () {
       Get.lazyPut(
-        () => AppSettingsController(Get.put(AppSettingsPresenter())),
+        () => AppSettingsController(Get.put(AppSettingsPresenter(Get.put(AuthUseCases(Get.find()))))),
       );
     },
   );
@@ -126,7 +126,7 @@ abstract class Variables {
   static final changePasswordBinding = BindingsBuilder<dynamic>(
     () {
       Get.lazyPut(
-        () => ChangePasswordController(Get.put(ChangePasswordPresenter())),
+        () => ChangePasswordController(Get.put(ChangePasswordPresenter(Get.put(AuthUseCases(Get.find()))))),
       );
     },
   );

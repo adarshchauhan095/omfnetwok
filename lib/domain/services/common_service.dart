@@ -1,7 +1,6 @@
 // coverage:ignore-file
 
 import 'dart:async';
-
 import 'package:connectivity/connectivity.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:get/get.dart';
@@ -17,12 +16,14 @@ import 'package:omf_netflix/app/app.dart';
 class CommonService extends GetxService {
   StreamSubscription? _streamSubscription;
 
+  /// initialize Device plugin
   Future<CommonService> init() async {
     onInit();
     deviceInfoPlugin = DeviceInfoPlugin();
     return this;
   }
 
+  /// initialize Device plugin
   var deviceInfoPlugin = DeviceInfoPlugin();
 
   @override
@@ -42,14 +43,14 @@ class CommonService extends GetxService {
   /// is not able to connect to the internet even if the connection is available
   /// will ask the user to check the internet permission.
   void _checkForInternetConnectivity() {
-    _streamSubscription = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) async {
-      if (result != ConnectivityResult.none) {
-        Utility.closeDialog();
-      } else {
-        Utility.showNoInternetDialog();
-      }
-    });
+    _streamSubscription = Connectivity().onConnectivityChanged.listen(
+      (ConnectivityResult result) async {
+        if (result != ConnectivityResult.none) {
+          Utility.closeDialog();
+        } else {
+          await Utility.showNoInternetDialog();
+        }
+      },
+    );
   }
 }

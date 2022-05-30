@@ -31,7 +31,7 @@ class BottomNavBar extends StatelessWidget {
                   size: Dimens.seventeen,
                 ),
               ),
-              label: StringConstants.home,
+              label:'home'.tr,
             ),
             BottomNavigationBarItem(
               icon: Padding(
@@ -41,7 +41,7 @@ class BottomNavBar extends StatelessWidget {
                   size: Dimens.seventeen,
                 ),
               ),
-              label: StringConstants.search,
+              label:'search'.tr,
             ),
             BottomNavigationBarItem(
               icon: Padding(
@@ -51,7 +51,7 @@ class BottomNavBar extends StatelessWidget {
                   size: Dimens.seventeen,
                 ),
               ),
-              label: StringConstants.trending,
+              label:'trending'.tr,
             ),
             BottomNavigationBarItem(
               icon: Padding(
@@ -61,7 +61,7 @@ class BottomNavBar extends StatelessWidget {
                   size: Dimens.seventeen,
                 ),
               ),
-              label: StringConstants.downloads,
+              label:'downloads'.tr,
             ),
             BottomNavigationBarItem(
               icon: Padding(
@@ -71,7 +71,7 @@ class BottomNavBar extends StatelessWidget {
                   size: Dimens.seventeen,
                 ),
               ),
-              label: StringConstants.profile,
+              label:'profile'.tr,
             ),
           ],
         ),

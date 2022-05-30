@@ -42,7 +42,7 @@ class PlayButton extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  StringConstants.play,
+                  'play'.tr,
                   style: TextStyle(color: color),
                 ),
               ],

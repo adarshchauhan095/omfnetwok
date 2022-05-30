@@ -6,7 +6,7 @@ analyzer:
     - lib/domain/entities/*.dart
   strong-mode:
     implicit-casts: false
-    implicit-dynamic: true
+    implicit-dynamic: false
   errors:
     close_sinks: ignore
     missing_required_param: warning

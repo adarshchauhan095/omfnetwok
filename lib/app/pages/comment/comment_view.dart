@@ -25,7 +25,7 @@ class CommentView extends StatelessWidget {
           ),
           centerTitle: true,
           title: Text(
-            StringConstants.comments,
+            'comments'.tr,
             style: Styles.primaryText20,
           ),
         ),

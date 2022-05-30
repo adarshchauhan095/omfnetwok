@@ -54,7 +54,7 @@ class CommentWidget extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  StringConstants.testOne,
+                                  'testOne'.tr,
                                   style: Styles.primaryText17,
                                 ),
                                 Text(
@@ -67,13 +67,13 @@ class CommentWidget extends StatelessWidget {
                         ),
                         Dimens.boxHeight10,
                         ReadMoreText(
-                          StringConstants.loremIpsum +
-                              StringConstants.loremIpsum,
+                          'loremIpsum'.tr +
+                              'loremIpsum'.tr,
                           trimLines: 4,
                           colorClickableText: Colors.pink,
                           trimMode: TrimMode.Line,
-                          trimCollapsedText: StringConstants.readMore,
-                          trimExpandedText: StringConstants.showLess,
+                          trimCollapsedText: 'readMore'.tr,
+                          trimExpandedText: 'showLess'.tr,
                           style: Styles.primaryText13,
                           lessStyle: Styles.primary13,
                           moreStyle: Styles.primary13,
@@ -99,7 +99,7 @@ class CommentWidget extends StatelessWidget {
                   suffixIcon: _controller.isSend
                       ? GestureDetector(
                           onTap: () {
-                            Get.snackbar(
+                            Get.snackbar<void>(
                                 'Your comment', _controller.commentText,
                                 colorText: ColorsValue.whiteColor);
                           },
@@ -114,7 +114,7 @@ class CommentWidget extends StatelessWidget {
                       Dimens.twenty,
                     ),
                   ),
-                  hintText: StringConstants.enterAComment,
+                  hintText: 'enterAComment'.tr,
                   formBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(
                       Dimens.twenty,

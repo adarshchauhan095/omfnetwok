@@ -73,8 +73,8 @@ class DownloadItem extends StatelessWidget {
                                 children: [
                                   Expanded(
                                     child: Text(
-                                      StringConstants.shoeShow +
-                                          StringConstants.shoeShow,
+                                    'shoeShow'.tr +
+                                        'shoeShow'.tr,
                                       style: Styles.primaryText14,
                                       softWrap: true,
                                       overflow: TextOverflow.ellipsis,
@@ -96,7 +96,7 @@ class DownloadItem extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: () {
-                      Get.bottomSheet(
+                      Get.bottomSheet<void>(
                         Container(
                           height: Dimens.twoHundred,
                           width: double.infinity,
@@ -122,7 +122,7 @@ class DownloadItem extends StatelessWidget {
                                       ),
                                       child: Center(
                                         child: Text(
-                                          StringConstants.deleteAllDownloads,
+                                        'deleteAllDownloads'.tr,
                                           style: Styles.primaryText16,
                                         ),
                                       ),
@@ -130,7 +130,7 @@ class DownloadItem extends StatelessWidget {
                                   ),
                                   Dimens.boxHeight10,
                                   GlobalButton(
-                                      title: StringConstants.cancel,
+                                      title:'cancel'.tr,
                                       buttonColor: ColorsValue.redColor,
                                       onTap: () {
                                         Get.back<void>();
@@ -215,7 +215,7 @@ class DownloadItem extends StatelessWidget {
                       Dimens.boxHeight2,
                       _controller.omfDownload[index!].isDownloading!
                           ? Text(
-                              '${StringConstants.downloading} - ${Utility.getPercentageValue(_controller.omfDownload[index!].receivedBytes!, _controller.omfDownload[index!].totalBytes == 0 ? 1 : _controller.omfDownload[index!].totalBytes!)} %',
+                              '${'downloading'.tr} - ${Utility.getPercentageValue(_controller.omfDownload[index!].receivedBytes!, _controller.omfDownload[index!].totalBytes == 0 ? 1 : _controller.omfDownload[index!].totalBytes!)} %',
                               style: Styles.primary13,
                             )
                           : Text(
@@ -260,7 +260,7 @@ class DownloadItem extends StatelessWidget {
                       : GestureDetector(
                           // onTap: _controller.downloadDataAvailble,
                           onTap: () {
-                            Get.bottomSheet(
+                            Get.bottomSheet<void>(
                               Container(
                                 height: Dimens.twoHundred,
                                 width: double.infinity,
@@ -288,8 +288,7 @@ class DownloadItem extends StatelessWidget {
                                             ),
                                             child: Center(
                                               child: Text(
-                                                StringConstants
-                                                    .deleteAllDownloads,
+                                                                                                  'deleteAllDownloads'.tr,
                                                 style: Styles.primaryText16,
                                               ),
                                             ),
@@ -297,7 +296,7 @@ class DownloadItem extends StatelessWidget {
                                         ),
                                         Dimens.boxHeight10,
                                         GlobalButton(
-                                            title: StringConstants.cancel,
+                                            title:'cancel'.tr,
                                             buttonColor: ColorsValue.redColor,
                                             onTap: () {
                                               Get.back<void>();

@@ -23,7 +23,7 @@ class AppSettingsView extends StatelessWidget {
           ),
           centerTitle: true,
           title: Text(
-            StringConstants.appSettings,
+            'appSettings'.tr,
             style: Styles.primaryText20,
           ),
         ),

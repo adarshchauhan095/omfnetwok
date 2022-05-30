@@ -49,12 +49,8 @@ void main() {
       expect(lobbyController.isMyListed, equals(true));
 
       expect(lobbyController.isLiked, equals(false));
-      lobbyController.makeFavorite();
+      lobbyController.makeFavorite(true);
       expect(lobbyController.isLiked, equals(true));
-
-    
-
-
     },
   );
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:omf_netflix/app/app.dart';
 
 class AppSettingsMenuList extends StatelessWidget {
@@ -16,7 +17,7 @@ class AppSettingsMenuList extends StatelessWidget {
                 children: [
                   Dimens.boxWidth10,
                   Text(
-                    StringConstants.reportAProblem,
+                    'reportAProblem'.tr,
                     style: Styles.primaryText12,
                   ),
                   const Spacer(),
@@ -37,7 +38,7 @@ class AppSettingsMenuList extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
-                StringConstants.about,
+                'about'.tr,
                 style: Styles.primaryText12,
               ),
             ),
@@ -52,7 +53,7 @@ class AppSettingsMenuList extends StatelessWidget {
                 children: [
                   Dimens.boxWidth10,
                   Text(
-                    StringConstants.privacy,
+                    'privacy'.tr,
                     style: Styles.primaryText12,
                   ),
                   const Spacer(),
@@ -76,7 +77,7 @@ class AppSettingsMenuList extends StatelessWidget {
                 children: [
                   Dimens.boxWidth10,
                   Text(
-                    StringConstants.termsAndCondition,
+                    'termsAndCondition'.tr,
                     style: Styles.primaryText12,
                   ),
                   const Spacer(),
@@ -100,7 +101,7 @@ class AppSettingsMenuList extends StatelessWidget {
                 children: [
                   Dimens.boxWidth10,
                   Text(
-                    StringConstants.deactivateAccount,
+                    'deactivateAccount'.tr,
                     style: Styles.primaryText12,
                   ),
                   const Spacer(),

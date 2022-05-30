@@ -1,5 +1,6 @@
 // coverage:ignore-file
-import 'package:omf_netflix/domain/models/trending.dart';
+import 'package:omf_netflix/app/app.dart';
+import 'package:omf_netflix/domain/domain.dart';
 
 final List<TrendingReel> reels = [
   TrendingReel(
@@ -71,5 +72,143 @@ final List<TrendingReel> reels = [
     true,
     '48K',
     false,
+  ),
+];
+
+final List<MoviesCategory> moviesCategoryList = [
+  MoviesCategory(
+    id: 1,
+    categoryName: StringConstants.recentlyAdded,
+    movieCategoryType: MovieCategoryType.movie,
+    subCategory: moviesSubCategoryList,
+  ),
+  MoviesCategory(
+    id: 2,
+    categoryName: StringConstants.newEpisodes,
+    movieCategoryType: MovieCategoryType.movie,
+    subCategory: moviesSubCategoryList,
+  ),
+  MoviesCategory(
+    id: 3,
+    categoryName: StringConstants.trendingNow,
+    movieCategoryType: MovieCategoryType.movie,
+    subCategory: moviesSubCategoryList,
+  ),
+  MoviesCategory(
+    id: 4,
+    categoryName: StringConstants.omfSeries,
+    movieCategoryType: MovieCategoryType.omfseries,
+    subCategory: moviesSubCategoryList,
+  ),
+  MoviesCategory(
+    id: 5,
+    categoryName: StringConstants.blockbusterMovies,
+    movieCategoryType: MovieCategoryType.movie,
+    subCategory: moviesSubCategoryList,
+  ),
+  MoviesCategory(
+    id: 6,
+    categoryName: StringConstants.continueWatching,
+    movieCategoryType: MovieCategoryType.continues,
+    subCategory: moviesSubCategoryList,
+  ),
+];
+
+final List<MoviesSubCategory> moviesSubCategoryList = [
+  MoviesSubCategory(
+    id: 1,
+    videoName: AssetConstants.movie1,
+    videoUrl: AssetConstants.movie1,
+    indices: [],
+    startIndex: 0,
+    endIndex: 0,
+  ),
+  MoviesSubCategory(
+    id: 2,
+    videoName: AssetConstants.movie2,
+    videoUrl: AssetConstants.movie2,
+    indices: [],
+    startIndex: 0,
+    endIndex: 0,
+  ),
+  MoviesSubCategory(
+    id: 3,
+    videoName: AssetConstants.movie3,
+    videoUrl: AssetConstants.movie3,
+    indices: [],
+    startIndex: 0,
+    endIndex: 0,
+  ),
+  MoviesSubCategory(
+    id: 4,
+    videoName: AssetConstants.movie4,
+    videoUrl: AssetConstants.movie4,
+    indices: [],
+    startIndex: 0,
+    endIndex: 0,
+  ),
+  MoviesSubCategory(
+    id: 5,
+    videoName: AssetConstants.movie5,
+    videoUrl: AssetConstants.movie5,
+    indices: [],
+    startIndex: 0,
+    endIndex: 0,
+  ),
+  MoviesSubCategory(
+    id: 6,
+    videoName: AssetConstants.movie6,
+    videoUrl: AssetConstants.movie6,
+    indices: [],
+    startIndex: 0,
+    endIndex: 0,
+  ),
+  MoviesSubCategory(
+    id: 7,
+    videoName: AssetConstants.movie7,
+    videoUrl: AssetConstants.movie7,
+    indices: [],
+    startIndex: 0,
+    endIndex: 0,
+  ),
+  MoviesSubCategory(
+    id: 8,
+    videoName: AssetConstants.movie8,
+    videoUrl: AssetConstants.movie8,
+    indices: [],
+    startIndex: 0,
+    endIndex: 0,
+  ),
+  MoviesSubCategory(
+    id: 9,
+    videoName: AssetConstants.movie1,
+    videoUrl: AssetConstants.movie1,
+    indices: [],
+    startIndex: 0,
+    endIndex: 0,
+  ),
+  MoviesSubCategory(
+    id: 10,
+    videoName: AssetConstants.movie2,
+    videoUrl: AssetConstants.movie2,
+    indices: [],
+    startIndex: 0,
+    endIndex: 0,
+  ),
+  MoviesSubCategory(
+    id: 11,
+    videoName: AssetConstants.movie3,
+    videoUrl: AssetConstants.movie3,
+    indices: [],
+    startIndex: 0,
+    endIndex: 0,
+  ),
+  MoviesSubCategory(
+    id: 12,
+    videoName: AssetConstants.movie4,
+    videoUrl: AssetConstants.movie4,
+    indices: [],
+    startIndex: 0,
+    endIndex: 0,
   ),
 ];

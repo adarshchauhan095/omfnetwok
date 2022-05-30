@@ -1,4 +1,5 @@
 // coverage:ignore-file
+export 'app_constants.dart';
 export 'asset_constants.dart';
 export 'exception/exception.dart';
 export 'json_constant.dart';

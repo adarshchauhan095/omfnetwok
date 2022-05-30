@@ -3,8 +3,8 @@ import 'package:omf_netflix/app/app.dart';
 
 /// An [ChangePasswordController], to update the UI for [ChangePasswordView]
 class ChangePasswordController extends GetxController {
-  ChangePasswordController(this.changePasswordPresenter);
-  final ChangePasswordPresenter changePasswordPresenter;
+  ChangePasswordController(this._changePasswordPresenter);
+  final ChangePasswordPresenter _changePasswordPresenter;
 
   /// Variable used to change password
   /// visibility through [passwordVisibility]
@@ -16,22 +16,32 @@ class ChangePasswordController extends GetxController {
     update();
   }
 
-  /// List of password errors.
-  String? currentPasswordErrors;
+  /// Variable used to change password
+  /// visibility through [passwordVisibility]
+  bool isConfirmPasswordVisible = false;
 
-  /// Is true when the password is valid.
-  bool isCurrentPasswordValid = true;
+  /// Used to Cahange the password visibility
+  void confirmPasswordVisibility() {
+    isConfirmPasswordVisible = !isConfirmPasswordVisible;
+    update();
+  }
+
+  /// Variable used to change password
+  /// visibility through [passwordVisibility]
+  bool isNewPasswordVisible = false;
+
+  /// Used to Cahange the password visibility
+  void newPasswordVisibility() {
+    isNewPasswordVisible = !isNewPasswordVisible;
+    update();
+  }
 
   /// Password of the user.
   String currentPassword = '';
 
   /// Check if the password is valid or not.
   void checkIfPasswordIsValid(String value) {
-    currentPasswordErrors = Utility.validatePassword(value) == null
-        ? null
-        : Utility.validatePassword(value);
     currentPassword = value;
-    isCurrentPasswordValid = currentPasswordErrors == null ? true : false;
     enableSubmitButton();
   }
 
@@ -71,8 +81,7 @@ class ChangePasswordController extends GetxController {
       confirmPasswordError = null;
     } else {
       isConfirmedPassword = false;
-      confirmPasswordError =
-          StringConstants.passwordAndConfirmPasswordShouldBeSame;
+      confirmPasswordError = 'passwordNotMatch'.tr;
     }
     enableSubmitButton();
   }
@@ -82,11 +91,33 @@ class ChangePasswordController extends GetxController {
 
   /// Enable or disable the submit based on [newPassword] and [confirmPassword].
   void enableSubmitButton() {
-    if (isCurrentPasswordValid && isNewPasswordValid && isConfirmedPassword) {
+    if (currentPassword.isNotEmpty &&
+        isNewPasswordValid &&
+        isConfirmedPassword) {
       isSubmitButtonEnable = true;
     } else {
       isSubmitButtonEnable = false;
     }
     update();
+  }
+
+  /// Change password
+  void changePassword() async {
+    var response = await _changePasswordPresenter.changePassword(
+      loading: true,
+      currentPassword: currentPassword,
+      newPassword: newPassword,
+    );
+
+    if (!response.hasError) {
+      await Get.bottomSheet<void>(
+        ChangedPasswordDialog(),
+        barrierColor: ColorsValue.blackColor.withOpacity(Dimens.pointNine),
+        isDismissible: true,
+        enableDrag: true,
+      );
+    } else {
+      Utility.showInfoDialog(response, false);
+    }
   }
 }

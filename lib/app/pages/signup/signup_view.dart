@@ -7,8 +7,11 @@ class SignupView extends StatelessWidget {
   const SignupView({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => const Scaffold(
-        backgroundColor: ColorsValue.scaffoldBackgroundColor,
-        body: SignupWidget(),
+  Widget build(BuildContext context) => const SafeArea(
+        child: Scaffold(
+          backgroundColor: ColorsValue.scaffoldBackgroundColor,
+          
+          body: SignupWidget(),
+        ),
       );
 }

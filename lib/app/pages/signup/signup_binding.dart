@@ -1,6 +1,7 @@
 // coverage:ignore-file
 import 'package:get/get.dart';
 import 'package:omf_netflix/app/app.dart';
+import 'package:omf_netflix/domain/domain.dart';
 
 /// A list of bindings which will be used in the route of [SignupView].
 class SignupBinding extends Bindings {
@@ -9,7 +10,13 @@ class SignupBinding extends Bindings {
     Get.lazyPut<SignupController>(
         () => SignupController(
               Get.put(
-                SignupPresenter(),
+                SignupPresenter(
+                  Get.put(
+                    AuthUseCases(
+                      Get.find(),
+                    ),
+                  ),
+                ),
               ),
             ),
         fenix: true);

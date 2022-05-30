@@ -18,7 +18,7 @@ class ProductView extends StatelessWidget {
                         Responsive.isMobile(context)
                     ? Dimens.boxHeight20
                     : Dimens.box0,
-                android: Dimens.boxHeight10),
+                android: Dimens.box0),
             Responsive.isWeb(context) ||
                     Responsive.isTablet(context) ||
                     Responsive.isMobile(context)
@@ -43,9 +43,7 @@ class ProductView extends StatelessWidget {
                       itemBuilder: (context, index) => GestureDetector(
                         onTap: () {
                           if (Responsive.isMobile(context)) {
-                          } else {
-                            
-                          }
+                          } else {}
                         },
                         child: Container(
                           decoration: BoxDecoration(
@@ -125,6 +123,4 @@ class ProductView extends StatelessWidget {
           ],
         ),
       );
-
-
 }

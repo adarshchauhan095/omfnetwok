@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:omf_netflix/app/app.dart';
 
-
 /// A widget for [AppSettingsView]
 class AppSettingsWidget extends StatelessWidget {
   static const appSettingsWidgetKey = Key('app-settings-widget-key');
@@ -16,36 +15,39 @@ class AppSettingsWidget extends StatelessWidget {
             Padding(
               padding: Dimens.edgeInsets15_0_15_0,
               child: Text(
-                StringConstants.support,
+                'support'.tr,
                 style: Styles.primaryText16,
               ),
             ),
             Dimens.boxHeight12,
-            AppSettingsBox(
-              title: StringConstants.reportAProblem,
-              suffixIcon: Icons.keyboard_arrow_right,
+            GestureDetector(
+              onTap: RouteManagement.goToReportAProblerm,
+              child: AppSettingsBox(
+                title: 'reportAProblem'.tr,
+                suffixIcon: Icons.keyboard_arrow_right,
+              ),
             ),
             Dimens.boxHeight25,
             Padding(
               padding: Dimens.edgeInsets15_0_15_0,
               child: Text(
-                StringConstants.about,
+                'about'.tr,
                 style: Styles.primaryText16,
               ),
             ),
             Dimens.boxHeight12,
             AppSettingsBox(
-              title: StringConstants.privacy,
+              title: 'privacy'.tr,
               suffixIcon: Icons.keyboard_arrow_right,
             ),
             Dimens.boxHeight10,
             AppSettingsBox(
-              title: StringConstants.termsAndCondition,
+              title: 'termsAndCondition'.tr,
               suffixIcon: Icons.keyboard_arrow_right,
             ),
             Dimens.boxHeight10,
             AppSettingsBox(
-              title: StringConstants.deactivateAccount,
+              title: 'deactivateAccount'.tr,
               suffixIcon: Icons.keyboard_arrow_right,
             ),
           ],

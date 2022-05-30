@@ -8,30 +8,32 @@ class SearchBox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => GetBuilder<HomeController>(
-      builder: (_controller) => Padding(
-            padding: padding,
-            child: FormFieldWidget(
-              contentPadding: Dimens.edgeInsets16,
-              onChange: _controller.searchSuggestion,
-              cursorColor: ColorsValue.primaryColor,
-              prefixIcon: const Icon(
-                Icons.search_outlined,
-                color: ColorsValue.greyColor,
-              ),
-              suffixIcon: const Icon(
-                Icons.mic,
-                color: ColorsValue.greyColor,
-              ),
-              fillColor: ColorsValue.greyBoxColor,
-              formStyle: Styles.primaryText14,
-              textInputType: TextInputType.text,
-              focusedBorder:
-                  const OutlineInputBorder(borderSide: BorderSide.none),
-              hintStyle: Styles.grey13,
-              hintText: StringConstants.searchForAShowMovieGenreEtc,
-              formBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(Dimens.seven),
-              ),
+        builder: (_controller) => Padding(
+          padding: padding,
+          child: FormFieldWidget(
+            contentPadding: Dimens.edgeInsets16,
+            onChange: _controller.searchSuggestion,
+            cursorColor: ColorsValue.primaryColor,
+            prefixIcon: const Icon(
+              Icons.search_outlined,
+              color: ColorsValue.greyColor,
             ),
-          ));
+            suffixIcon: const Icon(
+              Icons.mic,
+              color: ColorsValue.greyColor,
+            ),
+            fillColor: ColorsValue.greyBoxColor,
+            formStyle: Styles.primaryText14,
+            textInputType: TextInputType.text,
+            focusedBorder:
+                const OutlineInputBorder(borderSide: BorderSide.none),
+            hintStyle: Styles.grey13,
+            hintText: 'searchForAShowMovieGenreEtc'.tr,
+            formBorder: OutlineInputBorder(
+              borderSide: BorderSide.none,
+              borderRadius: BorderRadius.circular(Dimens.seven),
+            ),
+          ),
+        ),
+      );
 }

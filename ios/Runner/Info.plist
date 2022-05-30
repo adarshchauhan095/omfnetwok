@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>OMF Network</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -20,6 +22,38 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>MyApp does not need this permission</string>
+	<key>NSCalendarsUsageDescription</key>
+	<string>MyApp does not need this permission</string>
+	<key>NSCameraUsageDescription</key>
+	<string>MyApp does not need this permission</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This app requires contacts access to function properly.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>This app requires location permission in order to get your location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This app requires location permission in order to get your location</string>
+	<key>NSLocationUsageDescription</key>
+	<string>This app requires location permission in order to get your location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>MyApp does not need this permission</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>MyApp uses the microphone to record your speech and send to the patients.</string>
+	<key>NSMotionUsageDescription</key>
+	<string>MyApp does not need this permission</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to photo library to upload files to server</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>MyApp does not need this permission</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>audio</string>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

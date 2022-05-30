@@ -19,6 +19,13 @@ abstract class Routes {
   static const products = _Paths.products;
   static const subscriptionInformation = _Paths.subscriptionInformation;
   static const lobby = _Paths.lobby;
+  static const reportAProblem = _Paths.reportAProblem;
+  static const termsAndPolicy = _Paths.termsAndPolicy;
+  static const firstAndLastnameEditView = _Paths.firstAndLastnameEditView;
+  static const phonenumberEditView = _Paths.phonenumberEditView;
+  static const emailEditView = _Paths.emailEditView;
+  static const accountSettingsView = _Paths.accountSettingsView;
+  static const deviceLogView = _Paths.deviceLogView;
 }
 
 abstract class _Paths {
@@ -37,4 +44,11 @@ abstract class _Paths {
   static const products = '/products-screen';
   static const subscriptionInformation = '/subscription-information-screen';
   static const lobby = '/lobby';
+  static const reportAProblem = '/report-a-problem-view';
+  static const termsAndPolicy = '/terms-and-policy-view';
+  static const firstAndLastnameEditView = '/first-and-lastname-edit-view';
+  static const phonenumberEditView = '/phonenumber-edit-view';
+  static const emailEditView = '/email-edit-view';
+  static const accountSettingsView = '/account-settings-view';
+  static const deviceLogView = '/device-log-view';
 }

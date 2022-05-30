@@ -74,7 +74,7 @@ abstract class ColorsValue {
     footerContentColorHex,
   );
 
-  static const int greenColorHex = 0xff00FF00;
+  static const int greenColorHex = 0xff009944;
 
   static const int scaffoldBackgroundColorHex = 0xff000000;
 

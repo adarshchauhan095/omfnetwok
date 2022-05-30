@@ -38,13 +38,13 @@ void main() {
           expect(signupController.userName, isA<String>());
           expect(signupController.emailId, isA<String>());
           expect(signupController.password, isA<String>());
-          expect(signupController.confirmPassword, isA<String>());
+          // expect(signupController.confirmPassword, isA<String>());
           expect(signupController.phoneNumber, isA<String>());
           expect(signupController.firstNameError, isA<String?>());
           expect(signupController.lastNameError, isA<String?>());
           expect(signupController.emailErrorText, isA<String?>());
           expect(signupController.passwordErrors, isA<String?>());
-          expect(signupController.confirmPasswordError, isA<String?>());
+          // expect(signupController.confirmPasswordError, isA<String?>());
           expect(signupController.isEmailValid, isA<bool>());
           expect(signupController.isTermsAndPolicyAccept, false);
 
@@ -80,15 +80,15 @@ void main() {
           expect(signupController.passwordErrors, null);
           expect(signupController.isPasswordValid, true);
 
-          var validConfirmPassword = validPassword;
-          var invalidConfirmPassword = 'appscrip';
-          signupController.checkPasswordConfirmation(invalidConfirmPassword);
-          expect(signupController.confirmPasswordError,
-              StringConstants.passwordAndConfirmPasswordShouldBeSame);
-          expect(signupController.isConfirmedPassword, false);
-          signupController.checkPasswordConfirmation(validConfirmPassword);
-          expect(signupController.confirmPasswordError, null);
-          expect(signupController.isConfirmedPassword, true);
+          // var validConfirmPassword = validPassword;
+          // var invalidConfirmPassword = 'appscrip';
+          // signupController.checkPasswordConfirmation(invalidConfirmPassword);
+          // expect(signupController.confirmPasswordError,
+          //     StringConstants.passwordAndConfirmPasswordShouldBeSame);
+          // expect(signupController.isConfirmedPassword, false);
+          // signupController.checkPasswordConfirmation(validConfirmPassword);
+          // expect(signupController.confirmPasswordError, null);
+          // expect(signupController.isConfirmedPassword, true);
 
           expect(signupController.isTermsAndPolicyAccept, false);
 

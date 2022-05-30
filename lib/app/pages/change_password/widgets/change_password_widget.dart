@@ -13,7 +13,7 @@ class ChangePasswordWidget extends StatelessWidget {
                 children: [
                   FormFieldWidget(
                     contentPadding: Dimens.edgeInsets16,
-                    fillColor: ColorsValue.greyBoxColor,
+                    fillColor: ColorsValue.greyColor,
                     suffixIcon: GestureDetector(
                       onTap: _controller.passwordVisibility,
                       child: _controller.isPasswordVisible
@@ -33,19 +33,18 @@ class ChangePasswordWidget extends StatelessWidget {
                     focusedBorder:
                         const OutlineInputBorder(borderSide: BorderSide.none),
                     hintStyle: Styles.secondaryText14,
-                    hintText: StringConstants.currentPassword,
+                    hintText: StringConstants.oldPassword,
                     formBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(Dimens.seven),
                     ),
-                    errorText: _controller.currentPasswordErrors,
                     onChange: _controller.checkIfPasswordIsValid,
                   ),
                   FormFieldWidget(
                     contentPadding: Dimens.edgeInsets16,
-                    fillColor: ColorsValue.greyBoxColor,
+                    fillColor: ColorsValue.greyColor,
                     suffixIcon: GestureDetector(
-                      onTap: _controller.passwordVisibility,
-                      child: _controller.isPasswordVisible
+                      onTap: _controller.newPasswordVisibility,
+                      child: _controller.isNewPasswordVisible
                           ? const Icon(
                               Icons.remove_red_eye_outlined,
                               color: ColorsValue.greyColor,
@@ -57,12 +56,13 @@ class ChangePasswordWidget extends StatelessWidget {
                     ),
                     obscureCharacter: '*',
                     formStyle: Styles.primaryText14,
-                    isObscureText: _controller.isPasswordVisible ? false : true,
+                    isObscureText:
+                        _controller.isNewPasswordVisible ? false : true,
                     textInputType: TextInputType.emailAddress,
                     focusedBorder:
                         const OutlineInputBorder(borderSide: BorderSide.none),
-                    hintStyle: Styles.secondaryText14,
-                    hintText: StringConstants.newPassword,
+                    hintStyle: Styles.primaryText14,
+                    hintText: 'newPassword'.tr,
                     formBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(Dimens.seven),
                     ),
@@ -71,10 +71,10 @@ class ChangePasswordWidget extends StatelessWidget {
                   ),
                   FormFieldWidget(
                     contentPadding: Dimens.edgeInsets16,
-                    fillColor: ColorsValue.greyBoxColor,
+                    fillColor: ColorsValue.greyColor,
                     suffixIcon: GestureDetector(
-                      onTap: _controller.passwordVisibility,
-                      child: _controller.isPasswordVisible
+                      onTap: _controller.confirmPasswordVisibility,
+                      child: _controller.isConfirmPasswordVisible
                           ? const Icon(
                               Icons.remove_red_eye_outlined,
                               color: ColorsValue.greyColor,
@@ -86,12 +86,13 @@ class ChangePasswordWidget extends StatelessWidget {
                     ),
                     obscureCharacter: '*',
                     formStyle: Styles.primaryText14,
-                    isObscureText: _controller.isPasswordVisible ? false : true,
+                    isObscureText:
+                        _controller.isConfirmPasswordVisible ? false : true,
                     textInputType: TextInputType.emailAddress,
                     focusedBorder:
                         const OutlineInputBorder(borderSide: BorderSide.none),
-                    hintStyle: Styles.secondaryText14,
-                    hintText: StringConstants.confirmPassword,
+                    hintStyle: Styles.primaryText14,
+                    hintText: 'confirmPassword'.tr,
                     formBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(Dimens.seven),
                     ),
@@ -112,124 +113,146 @@ class ChangePasswordWidget extends StatelessWidget {
                   )
                 ],
               )
-            : Padding(
-                key: changePasswordWidgetKey,
-                padding: Dimens.edgeInsets15_0_15_0,
-                child: Column(
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: ListView(
-                        children: [
-                          FormFieldWidget(
-                            contentPadding: Dimens.edgeInsets16,
-                            fillColor: ColorsValue.greyBoxColor,
-                            suffixIcon: GestureDetector(
-                              onTap: _controller.passwordVisibility,
-                              child: _controller.isPasswordVisible
-                                  ? const Icon(
-                                      Icons.remove_red_eye_outlined,
-                                      color: ColorsValue.greyColor,
-                                    )
-                                  : const Icon(
-                                      Icons.remove_red_eye,
-                                      color: ColorsValue.greyColor,
-                                    ),
+            : GestureDetector(
+                onTap: () {
+                  var currentFocus = FocusScope.of(context);
+                  if (!currentFocus.hasPrimaryFocus) {
+                    currentFocus.unfocus();
+                  }
+                },
+                child: Padding(
+                  key: changePasswordWidgetKey,
+                  padding: Dimens.edgeInsets15_0_15_0,
+                  child: Column(
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: ListView(
+                          children: [
+                            FormFieldWidget(
+                              contentPadding: Dimens.edgeInsets16,
+                              fillColor: ColorsValue.greyColor,
+                              textInputAction: TextInputAction.next,
+                              suffixIcon: GestureDetector(
+                                onTap: _controller.passwordVisibility,
+                                child: _controller.isPasswordVisible
+                                    ? Icon(
+                                        Icons.remove_red_eye_outlined,
+                                        color: ColorsValue.whiteColor
+                                            .withOpacity(
+                                                Dimens.pointFiveStatic),
+                                      )
+                                    : Icon(
+                                        Icons.remove_red_eye,
+                                        color: ColorsValue.whiteColor
+                                            .withOpacity(
+                                                Dimens.pointFiveStatic),
+                                      ),
+                              ),
+                              obscureCharacter: '*',
+                              formStyle: Styles.primaryText14,
+                              isObscureText:
+                                  _controller.isPasswordVisible ? false : true,
+                              textInputType: TextInputType.emailAddress,
+                              focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide.none),
+                              hintStyle: Styles.secondaryText14,
+                              hintText: 'currentPassword'.tr,
+                              formBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(Dimens.seven),
+                              ),
+                              onChange: _controller.checkIfPasswordIsValid,
                             ),
-                            obscureCharacter: '*',
-                            formStyle: Styles.primaryText14,
-                            isObscureText:
-                                _controller.isPasswordVisible ? false : true,
-                            textInputType: TextInputType.emailAddress,
-                            focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide.none),
-                            hintStyle: Styles.secondaryText14,
-                            hintText: StringConstants.currentPassword,
-                            formBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Dimens.seven),
+                            FormFieldWidget(
+                              contentPadding: Dimens.edgeInsets16,
+                              fillColor: ColorsValue.greyColor,
+                              textInputAction: TextInputAction.next,
+                              suffixIcon: GestureDetector(
+                                onTap: _controller.newPasswordVisibility,
+                                child: _controller.isNewPasswordVisible
+                                    ? Icon(
+                                        Icons.remove_red_eye_outlined,
+                                        color: ColorsValue.whiteColor
+                                            .withOpacity(
+                                                Dimens.pointFiveStatic),
+                                      )
+                                    : Icon(
+                                        Icons.remove_red_eye,
+                                        color: ColorsValue.whiteColor
+                                            .withOpacity(
+                                                Dimens.pointFiveStatic),
+                                      ),
+                              ),
+                              obscureCharacter: '*',
+                              formStyle: Styles.primaryText14,
+                              isObscureText: _controller.isNewPasswordVisible
+                                  ? false
+                                  : true,
+                              textInputType: TextInputType.emailAddress,
+                              focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide.none),
+                              hintStyle: Styles.secondaryText14,
+                              hintText: 'newPassword'.tr,
+                              formBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(Dimens.seven),
+                              ),
+                              errorText: _controller.newPasswordErrors,
+                              onChange: _controller.checkIfNewPasswordIsValid,
                             ),
-                            errorText: _controller.currentPasswordErrors,
-                            onChange: _controller.checkIfPasswordIsValid,
-                          ),
-                          FormFieldWidget(
-                            contentPadding: Dimens.edgeInsets16,
-                            fillColor: ColorsValue.greyBoxColor,
-                            suffixIcon: GestureDetector(
-                              onTap: _controller.passwordVisibility,
-                              child: _controller.isPasswordVisible
-                                  ? const Icon(
-                                      Icons.remove_red_eye_outlined,
-                                      color: ColorsValue.greyColor,
-                                    )
-                                  : const Icon(
-                                      Icons.remove_red_eye,
-                                      color: ColorsValue.greyColor,
-                                    ),
+                            FormFieldWidget(
+                              contentPadding: Dimens.edgeInsets16,
+                              fillColor: ColorsValue.greyColor,
+                              textInputAction: TextInputAction.done,
+                              suffixIcon: GestureDetector(
+                                onTap: _controller.confirmPasswordVisibility,
+                                child: _controller.isConfirmPasswordVisible
+                                    ? Icon(
+                                        Icons.remove_red_eye_outlined,
+                                        color: ColorsValue.whiteColor
+                                            .withOpacity(
+                                                Dimens.pointFiveStatic),
+                                      )
+                                    : Icon(
+                                        Icons.remove_red_eye,
+                                        color: ColorsValue.whiteColor
+                                            .withOpacity(
+                                                Dimens.pointFiveStatic),
+                                      ),
+                              ),
+                              obscureCharacter: '*',
+                              formStyle: Styles.primaryText14,
+                              isObscureText:
+                                  _controller.isConfirmPasswordVisible
+                                      ? false
+                                      : true,
+                              textInputType: TextInputType.emailAddress,
+                              focusedBorder: const OutlineInputBorder(
+                                  borderSide: BorderSide.none),
+                              hintStyle: Styles.secondaryText14,
+                              hintText: 'confirmPassword'.tr,
+                              formBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(Dimens.seven),
+                              ),
+                              errorText: _controller.confirmPasswordError,
+                              onChange: _controller.checkPasswordConfirmation,
                             ),
-                            obscureCharacter: '*',
-                            formStyle: Styles.primaryText14,
-                            isObscureText:
-                                _controller.isPasswordVisible ? false : true,
-                            textInputType: TextInputType.emailAddress,
-                            focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide.none),
-                            hintStyle: Styles.secondaryText14,
-                            hintText: StringConstants.newPassword,
-                            formBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Dimens.seven),
-                            ),
-                            errorText: _controller.newPasswordErrors,
-                            onChange: _controller.checkIfNewPasswordIsValid,
-                          ),
-                          FormFieldWidget(
-                            contentPadding: Dimens.edgeInsets16,
-                            fillColor: ColorsValue.greyBoxColor,
-                            suffixIcon: GestureDetector(
-                              onTap: _controller.passwordVisibility,
-                              child: _controller.isPasswordVisible
-                                  ? const Icon(
-                                      Icons.remove_red_eye_outlined,
-                                      color: ColorsValue.greyColor,
-                                    )
-                                  : const Icon(
-                                      Icons.remove_red_eye,
-                                      color: ColorsValue.greyColor,
-                                    ),
-                            ),
-                            obscureCharacter: '*',
-                            formStyle: Styles.primaryText14,
-                            isObscureText:
-                                _controller.isPasswordVisible ? false : true,
-                            textInputType: TextInputType.emailAddress,
-                            focusedBorder: const OutlineInputBorder(
-                                borderSide: BorderSide.none),
-                            hintStyle: Styles.secondaryText14,
-                            hintText: StringConstants.confirmPassword,
-                            formBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(Dimens.seven),
-                            ),
-                            errorText: _controller.confirmPasswordError,
-                            onChange: _controller.checkPasswordConfirmation,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    GlobalButton(
-                      key: const Key('button-a1'),
-                      title: StringConstants.changePassword,
-                      onTap: () {
-                        Get.bottomSheet(
-                          ChangedPasswordDialog(),
-                          barrierColor: ColorsValue.blackColor
-                              .withOpacity(Dimens.pointNine),
-                          isDismissible: true,
-                          enableDrag: true,
-                        );
-                      },
-                      isDisable: !_controller.isSubmitButtonEnable,
-                    ),
-                    Dimens.boxHeight20
-                  ],
+                      GlobalButton(
+                        key: const Key('button-a1'),
+                        title: 'changePassword'.tr,
+                        onTap: () {
+                          _controller.changePassword();
+                        },
+                        isDisable: !_controller.isSubmitButtonEnable,
+                      ),
+                      Dimens.boxHeight20
+                    ],
+                  ),
                 ),
               ),
       );

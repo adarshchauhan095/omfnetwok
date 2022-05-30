@@ -1,5 +1,8 @@
 // coverage:ignore-file
 
+export 'account_settings_view.dart';
+export 'add_collection_content.dart';
+export 'all_profile_products_widget.dart';
 export 'app_settings_menu_list.dart';
 export 'bottom_nav_bar.dart';
 export 'continues_watching.dart';
@@ -7,11 +10,14 @@ export 'download_item.dart';
 export 'downloads_view.dart';
 export 'dropdown_chip.dart';
 export 'dropdown_shows.dart';
+export 'favorite_products_widget.dart';
+export 'feed_video_player.dart';
 export 'login_dialog_content.dart';
 export 'main_home_view.dart';
 export 'mobile/mobile.dart';
 export 'mobile/mobile_main_menu.dart';
 export 'movie_list_row.dart';
+export 'movies_list_widget.dart';
 export 'omf_series.dart';
 export 'play_button.dart';
 export 'play_list_heading.dart';

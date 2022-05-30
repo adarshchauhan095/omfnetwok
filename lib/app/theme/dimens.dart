@@ -407,6 +407,55 @@ abstract class Dimens {
     zero,
   );
 
+    static EdgeInsets edgeInsets8_0_8_0 = EdgeInsets.fromLTRB(
+    eight,
+    zero,
+    eight,
+    zero,
+  );
+
+    static EdgeInsets edgeInsets10_10_10_0 = EdgeInsets.fromLTRB(
+    ten,
+    ten,
+    ten,
+    zero,
+  );
+
+    static EdgeInsets edgeInsets15_0_0_5 = EdgeInsets.fromLTRB(
+    fifteen,
+    zero,
+    zero,
+    five,
+  );
+
+    static EdgeInsets edgeInsets6_4_6_4 = EdgeInsets.fromLTRB(
+    six,
+    four,
+    six,
+    four,
+  );
+
+    static EdgeInsets edgeInsets30_10_30_10 = EdgeInsets.fromLTRB(
+    thirty,
+    ten,
+    thirty,
+    ten,
+  );
+
+    static EdgeInsets edgeInsets30_0_30_0 = EdgeInsets.fromLTRB(
+    thirty,
+    zero,
+    thirty,
+    zero,
+  );
+
+    static EdgeInsets edgeInsets0_4_4_4 = EdgeInsets.fromLTRB(
+    zero,
+    four,
+    four,
+    four,
+  );
+
   /// Box widths
   static SizedBox boxWidth0 = SizedBox(width: zero);
   static SizedBox boxWidth3 = SizedBox(width: three);

@@ -10,7 +10,7 @@ class EpisodesView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
         key: episodeViewKey,
-        padding: Dimens.edgeInsets15_20_10_0,
+        padding: Dimens.edgeInsets15_0_15_0,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,

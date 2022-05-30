@@ -87,6 +87,12 @@ abstract class Styles {
     fontSize: Dimens.thirteen,
   );
 
+  static TextStyle grey14 = TextStyle(
+    fontFamily: 'Product-Sans',
+    color: ColorsValue.greyLightColor,
+    fontSize: Dimens.fourteen,
+  );
+
   static TextStyle primary15 = TextStyle(
     fontFamily: 'Product-Sans',
     color: ColorsValue.primaryColor,
@@ -221,7 +227,7 @@ abstract class Styles {
     fontSize: Dimens.sixteen,
   );
 
-    static TextStyle boldSecondaryText12 = TextStyle(
+  static TextStyle boldSecondaryText12 = TextStyle(
     fontFamily: 'Product-Sans',
     color: ColorsValue.secondaryTextColor,
     fontWeight: FontWeight.bold,
@@ -258,9 +264,23 @@ abstract class Styles {
     fontSize: Dimens.twelve,
   );
 
-    static TextStyle primary11 = TextStyle(
+  static TextStyle primary11 = TextStyle(
     fontFamily: 'Product-Sans',
     color: ColorsValue.primaryColor,
+    fontSize: Dimens.eleven,
+  );
+
+  static TextStyle boldPrimary11 = TextStyle(
+    fontFamily: 'Product-Sans',
+    color: ColorsValue.primaryColor,
+    fontWeight: FontWeight.bold,
+    fontSize: Dimens.eleven,
+  );
+
+  static TextStyle boldPrimaryText11 = TextStyle(
+    fontFamily: 'Product-Sans',
+    color: ColorsValue.whiteColor,
+    fontWeight: FontWeight.bold,
     fontSize: Dimens.eleven,
   );
 
@@ -281,5 +301,30 @@ abstract class Styles {
     fontFamily: 'Product-Sans',
     color: ColorsValue.redColor,
     fontSize: Dimens.fifteen,
+  );
+
+  static TextStyle white14 = TextStyle(
+    fontFamily: 'Product-Sans',
+    color: ColorsValue.whiteColor,
+    fontSize: Dimens.fourteen,
+  );
+
+  static TextStyle white12 = TextStyle(
+    fontFamily: 'Product-Sans',
+    color: ColorsValue.whiteColor,
+    fontSize: Dimens.twelve,
+  );
+
+  static TextStyle primaryBold16 = TextStyle(
+    fontWeight: FontWeight.bold,
+    fontFamily: 'Product-Sans',
+    color: ColorsValue.primaryColor,
+    fontSize: Dimens.sixteen,
+  );
+
+  static TextStyle red16 = TextStyle(
+    fontFamily: 'Product-Sans',
+    color: ColorsValue.redColor,
+    fontSize: Dimens.sixteen,
   );
 }

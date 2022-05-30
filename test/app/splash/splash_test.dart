@@ -26,6 +26,7 @@ void main() {
           SplashView.splashViewKey,
         ),
       );
+
       final splashImage = find.byKey(
         const Key(
           SplashWidget.splashImage,

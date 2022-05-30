@@ -3,6 +3,7 @@ export 'account/account.dart';
 export 'app_settings/app_settings.dart';
 export 'change_password/change_password.dart';
 export 'comment/comment.dart';
+export 'device_log/device_log.dart';
 export 'forgot_password/forgot_password.dart';
 export 'home/home.dart';
 export 'lobby/lobby.dart';

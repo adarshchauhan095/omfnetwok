@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:image_picker/image_picker.dart';
-import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:omf_netflix/app/app.dart';
 
 class WebAccountView extends StatelessWidget {
@@ -89,80 +87,10 @@ class WebAccountView extends StatelessWidget {
                       Dimens.boxHeight15,
                       GestureDetector(
                         onTap: () {
-                          Get.bottomSheet(
-                            Container(
-                              height: Dimens.twoHundred,
-                              width: double.infinity,
-                              color: ColorsValue.greyBoxColor,
-                              child: SingleChildScrollView(
-                                child: Padding(
-                                  padding: Dimens.edgeInsets10_15_10_15,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      GestureDetector(
-                                        onTap: () {
-                                          controller
-                                              .pickImage(ImageSource.camera);
-                                          Get.back<void>();
-                                        },
-                                        child: Container(
-                                          width: double.infinity,
-                                          height: Dimens.fourty,
-                                          decoration: BoxDecoration(
-                                            color: ColorsValue.greyColor,
-                                            borderRadius: BorderRadius.circular(
-                                                Dimens.seven),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              StringConstants.openCamera,
-                                              style: Styles.primaryText16,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Dimens.boxHeight10,
-                                      GestureDetector(
-                                        onTap: () {
-                                          controller
-                                              .pickImage(ImageSource.gallery);
-                                          Get.back<void>();
-                                        },
-                                        child: Container(
-                                          width: double.infinity,
-                                          height: Dimens.fourty,
-                                          decoration: BoxDecoration(
-                                            color: ColorsValue.greyColor,
-                                            borderRadius: BorderRadius.circular(
-                                                Dimens.seven),
-                                          ),
-                                          child: Center(
-                                            child: Text(
-                                              StringConstants.openGallery,
-                                              style: Styles.primaryText16,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Dimens.boxHeight10,
-                                      GlobalButton(
-                                          title: StringConstants.cancel,
-                                          buttonColor: ColorsValue.redColor,
-                                          onTap: () {
-                                            Get.back<void>();
-                                          })
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            barrierColor:
-                                ColorsValue.blackColor.withOpacity(0.9),
-                            isDismissible: true,
-                            enableDrag: false,
-                          );
+                          if (Responsive.isWeb(context) ||
+                              Responsive.isTablet(context)) {
+                            selectImageDialog(context);
+                          } else {}
                         },
                         child: Text(
                           StringConstants.edit,
@@ -214,48 +142,48 @@ class WebAccountView extends StatelessWidget {
               ),
             ),
             Dimens.boxHeight9,
-            FormFieldWidget(
-              contentPadding: Dimens.edgeInsets16,
-              onChange: (va) {},
-              fillColor: ColorsValue.greyBoxColor,
-              formStyle: Styles.primaryText14,
-              textInputType: TextInputType.number,
-              prefixIcon: Padding(
-                padding: Dimens.edgeInsets15_0_0_0,
-                child: InternationalPhoneNumberInput(
-                  onInputChanged: (value) {
-                    controller.checkIfPhoneNumberValid(value.toString());
-                  },
-                  onInputValidated: controller.storePhoneNumberCheck,
-                  errorMessage: controller.phoneNumberError,
-                  spaceBetweenSelectorAndTextField: Dimens.one,
-                  selectorConfig: const SelectorConfig(
-                    selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
-                  ),
-                  inputBorder:
-                      const OutlineInputBorder(borderSide: BorderSide.none),
-                  ignoreBlank: false,
-                  autoValidateMode: AutovalidateMode.disabled,
-                  textStyle: Styles.primaryText14,
-                  hintText: StringConstants.phoneNumber,
-                  selectorTextStyle: Styles.primaryText14,
-                  formatInput: false,
-                  keyboardType: const TextInputType.numberWithOptions(
-                      signed: true, decimal: true),
-                ),
-              ),
-              hintText: StringConstants.phoneNumber,
-              errorText: controller.phoneNumberError,
-              errorStyle: Styles.red12,
-              focusedBorder:
-                  const OutlineInputBorder(borderSide: BorderSide.none),
-              initialValue: '9988776655',
-              errorBorder:
-                  const OutlineInputBorder(borderSide: BorderSide.none),
-              formBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(Dimens.seven),
-              ),
-            ),
+            // FormFieldWidget(
+            //   contentPadding: Dimens.edgeInsets16,
+            //   onChange: (va) {},
+            //   fillColor: ColorsValue.greyBoxColor,
+            //   formStyle: Styles.primaryText14,
+            //   textInputType: TextInputType.number,
+            //   prefixIcon: Padding(
+            //     padding: Dimens.edgeInsets15_0_0_0,
+            //     child: InternationalPhoneNumberInput(
+            //       onInputChanged: (value) {
+            //         controller.checkIfPhoneNumberValid(value.toString());
+            //       },
+            //       // onInputValidated: controller.storePhoneNumberCheck,
+            //       errorMessage: controller.phoneNumberError,
+            //       spaceBetweenSelectorAndTextField: Dimens.one,
+            //       selectorConfig: const SelectorConfig(
+            //         selectorType: PhoneInputSelectorType.BOTTOM_SHEET,
+            //       ),
+            //       inputBorder:
+            //           const OutlineInputBorder(borderSide: BorderSide.none),
+            //       ignoreBlank: false,
+            //       autoValidateMode: AutovalidateMode.disabled,
+            //       textStyle: Styles.primaryText14,
+            //       hintText: StringConstants.phoneNumber,
+            //       selectorTextStyle: Styles.primaryText14,
+            //       formatInput: false,
+            //       keyboardType: const TextInputType.numberWithOptions(
+            //           signed: true, decimal: true),
+            //     ),
+            //   ),
+            //   hintText: StringConstants.phoneNumber,
+            //   errorText: controller.phoneNumberError,
+            //   errorStyle: Styles.red12,
+            //   focusedBorder:
+            //       const OutlineInputBorder(borderSide: BorderSide.none),
+            //   initialValue: '9988776655',
+            //   errorBorder:
+            //       const OutlineInputBorder(borderSide: BorderSide.none),
+            //   formBorder: OutlineInputBorder(
+            //     borderRadius: BorderRadius.circular(Dimens.seven),
+            //   ),
+            // ),
             Dimens.boxHeight20,
             Align(
               alignment: Alignment.centerLeft,
@@ -297,7 +225,8 @@ class WebAccountView extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: GlobalButton(
                 onTap: () {
-                  Get.snackbar('Message', 'Profile Details Saved Successfully!',
+                  Get.snackbar<void>(
+                      'Message', 'Profile Details Saved Successfully!',
                       colorText: ColorsValue.whiteColor,
                       snackPosition: SnackPosition.BOTTOM);
                 },
@@ -310,4 +239,37 @@ class WebAccountView extends StatelessWidget {
           ],
         ),
       );
+
+  void selectImageDialog(BuildContext context) {
+    showDialog<String>(
+      barrierDismissible: true,
+      context: context,
+      builder: (BuildContext context) => Dialog(
+        insetPadding: EdgeInsets.all(Dimens.ten),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimens.ten),
+        ),
+        elevation: 0.0,
+        backgroundColor: Colors.transparent,
+        child: Container(
+          alignment: Alignment.center,
+          width: Responsive.isWeb(context)
+              ? Dimens.percentWidth(.40)
+              : Responsive.isTablet(context)
+                  ? Dimens.percentWidth(.60)
+                  : Dimens.percentWidth(.80),
+          height: Responsive.isWeb(context)
+              ? Dimens.percentHeight(.50)
+              : Responsive.isTablet(context)
+                  ? Dimens.percentHeight(.50)
+                  : Dimens.percentHeight(.50),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(Dimens.ten),
+            color: ColorsValue.scaffoldBackgroundColor,
+          ),
+          child: const ImagePickingWidget(),
+        ),
+      ),
+    );
+  }
 }

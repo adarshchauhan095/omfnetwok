@@ -21,6 +21,7 @@ class GlobalButton extends StatelessWidget {
     this.width,
     this.prefixIcon,
     this.isDisable = false,
+    this.alignment = WrapAlignment.center,
   }) : super(key: key);
 
   final String? title;
@@ -32,6 +33,7 @@ class GlobalButton extends StatelessWidget {
   final double? height;
   final Widget? prefixIcon;
   final bool isDisable;
+  final WrapAlignment? alignment;
 
   @override
   Widget build(BuildContext context) => Opacity(
@@ -66,8 +68,7 @@ class GlobalButton extends StatelessWidget {
                   }
                 },
                 child: Wrap(
-                  alignment: WrapAlignment.center,
-
+                  alignment: alignment!,
                   children: [
                     Padding(
                       padding: prefixIcon != null

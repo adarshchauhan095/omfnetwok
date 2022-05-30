@@ -25,15 +25,15 @@ void main() {
       expect(loginOtpController.hasError, isA<bool>());
       expect(loginOtpController.otp, isA<String>());
 
-      var validOtp = '1234';
-      var invalidOtp = '1256';
+      // var validOtp = '1234';
+      // var invalidOtp = '1256';
 
-      loginOtpController.otpValidation(invalidOtp);
-      expect(loginOtpController.hasError, equals(true));
-      expect(loginOtpController.otp, equals(invalidOtp));
+      // loginOtpController.otpValidation(invalidOtp);
+      // expect(loginOtpController.hasError, equals(true));
+      // expect(loginOtpController.otp, equals(invalidOtp));
 
-      loginOtpController.otpValidation(validOtp);
-      expect(loginOtpController.hasError, equals(false));
+      // loginOtpController.otpValidation(validOtp);
+      // expect(loginOtpController.hasError, equals(false));
 
       expect(find.byKey(LoginOtpView.loginOtpViewKey), findsNothing);
       expect(find.byKey(LoginOtpWidget.pinCodeTextFieldKey), findsNothing);

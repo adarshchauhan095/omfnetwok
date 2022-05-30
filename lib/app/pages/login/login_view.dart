@@ -7,9 +7,11 @@ class LoginView extends StatelessWidget {
   static const loginViewKey = Key('login-view-key');
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-        key: loginViewKey,
-        backgroundColor: ColorsValue.scaffoldBackgroundColor,
-        body: LoginViewWidget(),
+  Widget build(BuildContext context) => SafeArea(
+        child: Scaffold(
+          key: loginViewKey,
+          backgroundColor: ColorsValue.scaffoldBackgroundColor,
+          body: LoginViewWidget(),
+        ),
       );
 }

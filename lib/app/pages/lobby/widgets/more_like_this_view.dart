@@ -6,7 +6,7 @@ import 'package:omf_netflix/app/app.dart';
 class MoreLikeThisView extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Padding(
-        padding: Dimens.edgeInsets15_20_10_0,
+        padding: Dimens.edgeInsets15_0_15_0,
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -19,16 +19,16 @@ class MoreLikeThisView extends StatelessWidget {
                     : Responsive.isTablet(context)
                         ? 4
                         : 3,
-                itemCount: 25,
+                itemCount: 10,
                 staggeredTileBuilder: (int index) => const StaggeredTile.fit(1),
-                mainAxisSpacing: Dimens.twenty,
-                crossAxisSpacing: Dimens.twenty,
+                mainAxisSpacing: Dimens.five,
+                crossAxisSpacing: Dimens.five,
                 itemBuilder: (context, index) => Card(
                   clipBehavior: Clip.antiAlias,
                   color: Colors.white,
                   child: SizedBox(
-                    width: Dimens.hundredThirty,
-                    height: Dimens.twoHundred,
+                    width: Dimens.hundred,
+                    height: Dimens.hundredFifty,
                     child: Image.asset(
                       AssetConstants.movie,
                       fit: BoxFit.cover,

@@ -1,32 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:omf_netflix/app/app.dart';
 import 'package:omf_netflix/domain/domain.dart';
 
 /// List of Continue watching and pending watching videos
 /// as Season and Episodes.
 class ContinuesWatching extends StatelessWidget {
-  const ContinuesWatching({Key? key}) : super(key: key);
+   ContinuesWatching({Key? key,this.subCategoryIndex, required this.moviesSubCategory }) : super(key: key);
+   final int? subCategoryIndex;
+  final List<MoviesSubCategory> moviesSubCategory;
 
   @override
-  Widget build(BuildContext context) => GetBuilder<HomeController>(
-        builder: (_controller) => Align(
-          alignment: Alignment.centerLeft,
-          child: Padding(
-            padding: (Responsive.isWeb(context)) || Responsive.isTablet(context)
-                ? Dimens.edgeInsets35_0_15_0Minus12
-                : Dimens.edgeInsets16_0_16_0,
-            child: SizedBox(
-              height: Dimens.hundredEightyEight,
-              child: Stack(
-                children: [
-                  Padding(
-                    padding: Dimens.edgeInsets12_0_12_0,
-                    child: ListView.separated(
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) => Card(
+  Widget build(BuildContext context) => Card(
                               clipBehavior: Clip.antiAlias,
                               color: ColorsValue.greyBoxColor,
                               child: Column(
@@ -39,7 +23,7 @@ class ContinuesWatching extends StatelessWidget {
                                           height: Dimens.hundredFiftyOne,
                                           width: Dimens.hundredSix,
                                           child: Image.asset(
-                                            _controller.moviesList[index],
+                                            '${moviesSubCategory[subCategoryIndex!].videoUrl}',
                                             fit: BoxFit.cover,
                                           ),
                                         ),
@@ -91,32 +75,5 @@ class ContinuesWatching extends StatelessWidget {
                                   )
                                 ],
                               ),
-                            ),
-                        separatorBuilder: (context, index) => Dimens.boxWidth15,
-                        itemCount: _controller.moviesList.length),
-                  ),
-                  (Responsive.isWeb(context)) || Responsive.isTablet(context)
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: CircularIndicatorButton(
-                            buttonIndicator: ButtonIndicator.left,
-                            onTap: () {},
-                          ),
-                        )
-                      : Dimens.box0,
-                  (Responsive.isWeb(context)) || Responsive.isTablet(context)
-                      ? Align(
-                          alignment: Alignment.centerRight,
-                          child: CircularIndicatorButton(
-                            buttonIndicator: ButtonIndicator.right,
-                            onTap: () {},
-                          ),
-                        )
-                      : Dimens.box0,
-                ],
-              ),
-            ),
-          ),
-        ),
-      );
+                            );
 }

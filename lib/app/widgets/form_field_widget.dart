@@ -59,6 +59,8 @@ class FormFieldWidget extends StatelessWidget {
     this.onEditingComplete,
     this.initialValue,
     this.cursorColor = ColorsValue.whiteColor,
+    this.maxlines = 1,
+    this.enabled = true,
   }) : super(key: key);
 
   final FocusNode? focusNode;
@@ -90,6 +92,8 @@ class FormFieldWidget extends StatelessWidget {
   final int? maxLength;
   final String? initialValue;
   final Color? cursorColor;
+  final int? maxlines;
+  final bool? enabled;
 
   @override
   Widget build(BuildContext context) => TextFormField(
@@ -120,10 +124,12 @@ class FormFieldWidget extends StatelessWidget {
             prefixIcon: prefixIcon,
             counter: Dimens.box0),
         onChanged: onChange,
+        maxLines: maxlines,
         textInputAction: textInputAction,
         keyboardType: textInputType,
         style: formStyle,
         onEditingComplete: onEditingComplete,
         initialValue: initialValue,
+        enabled: enabled,
       );
 }

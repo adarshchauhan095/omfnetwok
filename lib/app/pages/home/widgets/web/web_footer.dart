@@ -21,7 +21,7 @@ class WebFooter extends StatelessWidget {
                   SocialIcon(
                     icon: Icons.facebook,
                     onTap: () {
-                      Get.snackbar(
+                      Get.snackbar<void>(
                         'Message',
                         'Facebook',
                         backgroundColor: ColorsValue.primaryColor
@@ -34,7 +34,7 @@ class WebFooter extends StatelessWidget {
                   SocialIcon(
                     icon: Icons.facebook,
                     onTap: () {
-                      Get.snackbar(
+                      Get.snackbar<void>(
                         'Message',
                         'Instagram',
                         backgroundColor: ColorsValue.primaryColor
@@ -47,7 +47,7 @@ class WebFooter extends StatelessWidget {
                   SocialIcon(
                     icon: Icons.facebook,
                     onTap: () {
-                      Get.snackbar(
+                      Get.snackbar<void>(
                         'Message',
                         'Twitter',
                         backgroundColor: ColorsValue.primaryColor
@@ -60,7 +60,7 @@ class WebFooter extends StatelessWidget {
                   SocialIcon(
                     icon: Icons.facebook,
                     onTap: () {
-                      Get.snackbar(
+                      Get.snackbar<void>(
                         'Message',
                         'Youtube',
                         backgroundColor: ColorsValue.primaryColor
@@ -86,7 +86,7 @@ class WebFooter extends StatelessWidget {
                 itemCount: _controller.footerMenuList.length,
                 itemBuilder: (context, index) => GestureDetector(
                   onTap: () {
-                    Get.snackbar(
+                    Get.snackbar<void>(
                       'Message',
                       _controller.footerMenuList[index],
                       backgroundColor: ColorsValue.primaryColor

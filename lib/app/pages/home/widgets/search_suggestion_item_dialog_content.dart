@@ -38,7 +38,7 @@ class SearchSuggestionItemDialogContent extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  StringConstants.shows,
+                                  'shows'.tr,
                                   style: Styles.primaryText15,
                                 ),
                                 GestureDetector(

@@ -32,7 +32,7 @@ class SearchSuggestion extends StatelessWidget {
                 onTap: () {
                   Responsive.isWeb(context) || Responsive.isTablet(context)
                       ? suggestedItemDialog(context)
-                      : Get.bottomSheet(
+                      : Get.bottomSheet<void>(
                           const SearchSuggestionItemDialogContent(),
                           isDismissible: true,
                           enableDrag: true,

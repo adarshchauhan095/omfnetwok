@@ -170,7 +170,7 @@ class SubscriptionSheet extends StatelessWidget {
                         
                       }
                     } else {
-                      RouteManagement.goToHome();
+                      RouteManagement.goToOffHome();
                     }
                   }),
             )

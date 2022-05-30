@@ -24,7 +24,7 @@ class PlayListHeading extends StatelessWidget {
             (Responsive.isWeb(context)) || Responsive.isTablet(context)
                 ? GestureDetector(
                     onTap: () {
-                      Get.snackbar('Message', '$heading',
+                      Get.snackbar<void>('Message', '$heading',
                           backgroundColor: ColorsValue.primaryColor
                               .withOpacity(Dimens.pointFive),
                           colorText: ColorsValue.whiteColor);
@@ -32,7 +32,7 @@ class PlayListHeading extends StatelessWidget {
                     child: Row(
                       children: [
                         Text(
-                          StringConstants.exploreAll,
+                          'exploreAll'.tr,
                           style: Styles.primaryText12,
                         ),
                         Icon(

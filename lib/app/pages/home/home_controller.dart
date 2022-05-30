@@ -1,22 +1,75 @@
+import 'dart:convert';
 import 'dart:io' as io;
 import 'dart:io';
 import 'dart:math';
-import 'package:chewie/chewie.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 import 'package:omf_netflix/app/app.dart';
 import 'package:omf_netflix/domain/domain.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:video_player/video_player.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
 /// A controller for [HomeView] to update the UI.
 class HomeController extends GetxController {
-  HomeController(this.homePresenter);
-  final HomePresenter homePresenter;
+  HomeController(this._homePresenter);
+  final HomePresenter _homePresenter;
+
+ 
+  final List<String> videos = [
+    'https://res.cloudinary.com/dxkoc9aao/video/upload/c_fill/v1644818615/ShopAR/post/video/1644818599729/611f8c531fd0a50014af3121.mp4',
+    'https://res.cloudinary.com/dxkoc9aao/video/upload/c_fill/v1644819786/ShopAR/post/video/1644819780863/611f8c531fd0a50014af3121.mp4',
+    'https://res.cloudinary.com/dxkoc9aao/video/upload/c_fill/v1644818723/ShopAR/post/video/1644818712537/611f8c531fd0a50014af3121.mp4',
+    'https://res.cloudinary.com/dxkoc9aao/video/upload/c_fill/v1644818482/ShopAR/post/video/1644818478491/611f8c531fd0a50014af3121.mp4',
+  ];
+
+ 
+  var collectionNameController = TextEditingController();
+
+  /// Collection Response Model
+  var collectionReponseModel = CollectionListResponse();
+
+  Future<void> getCollections({
+    required String limit,
+    required String offset,
+    required bool loading,
+  }) async {
+    final res = await _homePresenter.getCollections(
+        limit: limit, offset: offset, loading: loading);
+
+    if (res != null) {
+      collectionReponseModel = res;
+      update();
+    } else {}
+  }
+
+  /// postId: '62054f19f1349052617247a1',
+  Future<String> createCollection() async {
+    final res = await _homePresenter.createCollection(
+        title: collectionNameController.text, loading: true);
+    if (!res.hasError) {
+      final data = jsonDecode(res.data) as Map<String, dynamic>;
+      if (data['data']['collectionId'] != null) {
+        final res = await _homePresenter.bookmarkPost(
+          postId: '62054f19f1349052617247a1',
+          collectionId: data['data']['collectionId'] as String,
+          loading: true,
+        );
+        if (!res.hasError) {
+          await getCollections(limit: '10', loading: false, offset: '1');
+          update();
+          return 'Collection Created & Saved';
+        }
+        return 'Error';
+      }
+      return 'Error';
+    }
+    return 'Error';
+  }
 
   // Download Section ==========================================================
 
@@ -200,7 +253,7 @@ class HomeController extends GetxController {
     });
   }
 
-  getFileSize(File? file) async {
+  Future<String> getFileSize(File? file) async {
     var size = await file!.length();
     if (size == 0) {
       return '0 KB';
@@ -215,8 +268,8 @@ class HomeController extends GetxController {
   }
 
   String? directory;
-  List allFilesList = [];
-  var videoList = [];
+  List<io.FileSystemEntity> allFilesList = [];
+  List<io.FileSystemEntity> videoList = [];
 
   void listofFiles() async {
     directory = (await getApplicationDocumentsDirectory()).path;
@@ -236,7 +289,7 @@ class HomeController extends GetxController {
 
   /// Open downloaded file
   Future getFile({String? url, String? fileName}) async {
-    Utility.showTextLoader('Downloading Please Wait...');
+    Utility.showLoader();
     final file = await downloadFile(url, fileName);
     if (file != null) {
       Utility.closeLoader();
@@ -252,9 +305,8 @@ class HomeController extends GetxController {
   Future<File?> downloadFile(String? url, String? name) async {
     final appStorage = await getApplicationDocumentsDirectory();
     final file = File('${appStorage.path}/$name');
-
     try {
-      final response = await Dio().get(
+      final response = await Dio().get<dynamic>(
         url!,
         options: Options(
             responseType: ResponseType.bytes,
@@ -283,17 +335,22 @@ class HomeController extends GetxController {
   /// To switch index through bottomsheet
   void onItemTapped(int index) {
     selectedIndex = index;
-    if (chewieController != null) {
-      if (selectedIndex == 2) {
-        videoInit(pageIndex);
-        btmNavBgTransparent = true;
-      } else {
-        chewieController!.pause();
-        btmNavBgTransparent = false;
-      }
+    if (selectedIndex == 2) {
+      btmNavBgTransparent = true;
     } else {
       btmNavBgTransparent = false;
     }
+    // if (chewieController != null) {
+    //   if (selectedIndex == 2) {
+    //     videoInit(pageIndex);
+    //     btmNavBgTransparent = true;
+    //   } else {
+    //     chewieController!.pause();
+    //     btmNavBgTransparent = false;
+    //   }
+    // } else {
+    //   btmNavBgTransparent = false;
+    // }
     update();
   }
 
@@ -342,40 +399,151 @@ class HomeController extends GetxController {
 
 // main home page section ======================================================
 
-  /// static list of images showed in [MainHomeView]
-  List<String> moviesList = [
-    AssetConstants.movie1,
-    AssetConstants.movie2,
-    AssetConstants.movie3,
-    AssetConstants.movie4,
-    AssetConstants.movie5,
-    AssetConstants.movie6,
-    AssetConstants.movie7,
-    AssetConstants.movie8,
-    AssetConstants.movie1,
-    AssetConstants.movie2,
-    AssetConstants.movie3,
-    AssetConstants.movie4,
-    AssetConstants.movie5,
-    AssetConstants.movie6,
-    AssetConstants.movie7,
-  ];
+  List<MoviesCategory> categoryList = [];
+
+    /// static list of images showed in [MainHomeView]
+    List<String> moviesList = [
+      AssetConstants.movie1,
+      AssetConstants.movie2,
+      AssetConstants.movie3,
+      AssetConstants.movie4,
+      AssetConstants.movie5,
+      AssetConstants.movie6,
+      AssetConstants.movie7,
+      AssetConstants.movie8,
+      AssetConstants.movie1,
+      AssetConstants.movie2,
+      AssetConstants.movie3,
+      AssetConstants.movie4,
+      AssetConstants.movie5,
+      AssetConstants.movie6,
+      AssetConstants.movie7,
+    ];
+
+  List<String> subList = [];
+
+  List<List<String>> mainList = [];
+
+  Widget movieTypeListView(
+      {MovieCategoryType? type,
+      int? subIndex,
+      List<MoviesSubCategory>? subCategory}) {
+    switch (type) {
+      case MovieCategoryType.movie:
+        return MoviesListWidget(
+            subCategoryIndex: subIndex, moviesSubCategory: subCategory!);
+      case MovieCategoryType.omfseries:
+        return OmfSeries(
+            subCategoryIndex: subIndex, moviesSubCategory: subCategory!);
+      case MovieCategoryType.continues:
+        return ContinuesWatching(
+            subCategoryIndex: subIndex, moviesSubCategory: subCategory!);
+      default:
+    }
+    return Container(
+      child: Center(
+        child: Text(
+          'No Data Found!',
+          style: Styles.primaryText16,
+        ),
+      ),
+    );
+  }
+
+// =====
+
+  int lengthOfCategoryList = 0;
+
+  // final itemScrollController = ItemScrollController();
+  final List<ItemScrollController>? itemScrollControllerList = [];
+  // final itemPositionsListener = ItemPositionsListener.create();
+  final List<ItemPositionsListener>? itemPositionsListenerList = [];
+
+  // List<int> indices = [];
+  List<List<int>> indicesList = [];
+
+  // int startIndex = 0;
+  List<int> startIndexList = [];
+  // int endIndex = 0;
+  List<int> endIndexList = [];
+
+  // void getIndices(int categoryIndex) {
+  //   itemPositionsListenerList![categoryIndex].itemPositions.addListener(() {
+  //     final indexesOfList = itemPositionsListenerList![categoryIndex]
+  //         .itemPositions
+  //         .value
+  //         .where((element) {
+  //           final isPreviousVisible = element.itemLeadingEdge >= 0;
+  //           // final isNextVisble = element.itemTrailingEdge <= 1;
+  //           return isPreviousVisible;
+  //         })
+  //         .map((e) => e.index)
+  //         .toList();
+
+  //     indicesList[categoryIndex].addAll(indexesOfList);
+
+  //     startIndexList[categoryIndex] = indicesList[categoryIndex].isEmpty
+  //         ? 0
+  //         : indicesList[categoryIndex].reduce(min);
+  //     endIndexList[categoryIndex] = indicesList[categoryIndex].isEmpty
+  //         ? 0
+  //         : indicesList[categoryIndex].reduce(max);
+
+  //     // debugPrint(
+  //     //     'startIndex is: ${startIndex} and endIndex is: ${endIndex}, and movielist length is: ${moviesList.length}');
+  //     // debugPrint('$indices');
+  //   });
+  // }
+
+  void scrollToNext(int index) async {
+    if (indicesList[index].isEmpty) {
+      // getIndices(index);
+    } else {
+      // getIndices(index);
+      if (endIndexList[index] < moviesList.length - 1) {
+        await itemScrollControllerList![index].scrollTo(
+            index: endIndexList[index] + 1,
+            alignment: 0.8,
+            duration: const Duration(milliseconds: 200));
+        debugPrint(
+            'startIndex is: ${startIndexList[index]} and endIndex is: ${endIndexList[index]}, and movielist length is: ${moviesList.length}');
+      } else {}
+    }
+  }
+
+  void scrollToPrevious(int index) async {
+    if (indicesList[index].isEmpty) {
+      // getIndices(index);
+    } else {
+      // getIndices(index);
+      if (startIndexList[index] > 0) {
+        await itemScrollControllerList![index].scrollTo(
+            index: startIndexList[index] - 1,
+            alignment: 0,
+            duration: const Duration(milliseconds: 200));
+        // debugPrint('startIndex is: ${startIndex} and endIndex is: ${endIndex}');
+
+      } else {}
+    }
+  }
+
+  // ======
 
   /// footer menu list
   List<String> footerMenuList = [
-    StringConstants.audioAndSubtitles,
-    StringConstants.audioDescription,
-    StringConstants.helpCenter,
-    StringConstants.giftCards,
-    StringConstants.mediaCenter,
-    StringConstants.investorRelations,
-    StringConstants.jobs,
-    StringConstants.termsOfUse,
-    StringConstants.privacy,
-    StringConstants.legalNotices,
-    StringConstants.cookiePreferences,
-    StringConstants.corporateInformation,
-    StringConstants.contactUs,
+    'audioAndSubtitles'.tr,
+    'audioDescription'.tr,
+    'helpCenter'.tr,
+    'giftCards'.tr,
+    'mediaCenter'.tr,
+    'investorRelations'.tr,
+    'jobs'.tr,
+    'termsOfUse'.tr,
+    'privacy'.tr,
+    'legalNotices'.tr,
+    'cookiePreferences'.tr,
+    'corporateInformation'.tr,
+    'contactUs'.tr,
   ];
 
   List<WebDrawer> drawerMenus = [
@@ -399,7 +567,7 @@ class HomeController extends GetxController {
   ];
 
   /// Web drawer methods
-  selectMenu(int index) {
+  void selectMenu(int index) {
     var item = drawerMenus
         .firstWhere((element) => element.mTitle == drawerMenus[index].mTitle);
     item.isActive = !item.isActive!;
@@ -414,110 +582,13 @@ class HomeController extends GetxController {
   /// And initilized as [0] as the first page of [PageView].
   int pageIndex = 0;
 
-  /// varibale will be true if Volume of video is set to down or [0].
-  bool volumeDown = false;
-
-  /// [play] variable is true if the video state is in playing.
-  bool play = true;
-
   /// the method set the [pageIndex] according to [PageView] index and runs the
-  /// [videoInit] method via [pageIndex].
+  /// videoInit method via [pageIndex].
   void setPageIndex(int index) {
     pageIndex = index;
-    videoInit(pageIndex);
     update();
   }
 
-  /// if the video is likes or not.
-  void makeFavorite(int index) {
-    trendingReel[index].isLiked = !trendingReel[index].isLiked;
-    update();
-  }
-
-  /// if the video is save in MyList or not.
-  void addToMylist(int index) {
-    trendingReel[index].isListed = !trendingReel[index].isListed;
-    update();
-  }
-
-  /// make the playing video mute/volumedown or unmute/volumeup
-  void mute() {
-    volumeDown = !volumeDown;
-    if (volumeDown) {
-      chewieController!.setVolume(0.0);
-    } else {
-      chewieController!.setVolume(1.0);
-    }
-    update();
-  }
-
-  /// method that makes the playing video again if it is paused
-  void makePlayTrue() {
-    play = false;
-    update();
-  }
-
-  /// a method that play or pause the video
-  void playPause() {
-    play = !play;
-    if (play) {
-      chewieController!.pause();
-    } else {
-      chewieController!.play();
-    }
-    update();
-  }
-
-  /// dummy data for trending reels
-  List<TrendingReel> trendingReel = [];
-
-  /// instance/object for [VideoPlayerController].
-  VideoPlayerController? videoPlayerController;
-
-  /// instance/object for [ChewieController].
-  ChewieController? chewieController;
-
-  /// varibale that will used as initilizer for video controllers.
-  Future? initializePlayer;
-
-  /// a variable used to store the video thumbnail.
-  String? fileName;
-
-  /// variable used to store the video thumbnail file from the [fileName] path.
-  File? assetFile;
-
-  /// method to get the thumbail from the video file.
-  Future<void> getThumbnail(int index) async {
-    fileName = await VideoThumbnail.thumbnailFile(
-      video: trendingReel[index].video,
-      thumbnailPath: (await getTemporaryDirectory()).path,
-      imageFormat: ImageFormat.JPEG,
-      quality: 75,
-    );
-    assetFile = File(fileName!);
-  }
-
-  /// method to start the video and initilize video player
-  void videoInit(int pageNumber) async {
-    makePlayTrue();
-    debugPrint('video link is: ${trendingReel[pageNumber].video}');
-    await getThumbnail(pageNumber);
-    debugPrint(
-        '${fileName!}is filename ====================================================================');
-    initializePlayer = videoPlayerController!.initialize();
-    chewieController = ChewieController(
-      videoPlayerController:
-          VideoPlayerController.network(trendingReel[pageNumber].video),
-      autoInitialize: true,
-      autoPlay: true,
-      looping: true,
-      showOptions: false,
-      customControls: Dimens.box0,
-      showControlsOnInitialize: false,
-      aspectRatio: chewieController!.videoPlayerController.value.aspectRatio,
-    );
-    update();
-  }
 
 // Web View Section ============================================================
 
@@ -539,47 +610,313 @@ class HomeController extends GetxController {
 
   int webWidgetIndex = 0;
 
-  setWebWidgetIndex(int index) {
+  void setWebWidgetIndex(int index) {
     webWidgetIndex = index;
     update();
   }
 
   bool isSearchIconTapped = false;
 
-  enableSearchBar() {
+  void enableSearchBar() {
     isSearchIconTapped = !isSearchIconTapped;
     update();
   }
 
   bool isDropDownAppSettings = false;
 
-  viewDropDownMenus() {
+  void viewDropDownMenus() {
     isDropDownAppSettings = !isDropDownAppSettings;
     update();
   }
 
-  @override
-  void onInit() {
-    trendingReel = reels;
-    listofFiles();
-    kIsWeb
-        ? debugPrint('')
-        : videoPlayerController =
-            VideoPlayerController.network(AssetConstants.movieLink);
-    kIsWeb
-        ? debugPrint('')
-        : chewieController = ChewieController(
-            videoPlayerController:
-                VideoPlayerController.network(trendingReel[0].video),
-            autoInitialize: true);
-    kIsWeb ? debugPrint('') : getThumbnail(0);
-    super.onInit();
+  /// Date of Birth Picker ==========================================
+
+  /// selected date
+  DateTime? selectedDate;
+
+  /// new date
+  bool isNewDate = false;
+
+  /// Date of birth variable as TextEditingController
+  var dob = TextEditingController();
+
+  /// Date Picker
+  void selectDate(BuildContext context) async => await showDatePicker(
+        context: context,
+        initialDate: selectedDate != null ? selectedDate! : DateTime.now(),
+        firstDate: DateTime(2000, 1),
+        lastDate: DateTime(2040, 1),
+        builder: (context, picker) => Theme(
+          data: Theme.of(context),
+          child: picker!,
+        ),
+      ).then((value) {
+        isNewDate = true;
+        if (value != null) {
+          isNewDate = true;
+          dob.text = Utility.getDayMonthYear(value);
+          debugPrint(dob.text);
+          update();
+        }
+      });
+
+  /// API calls
+
+  /// Logout API call
+  Future<void> logout() async => await _homePresenter.logout();
+
+  /// Profile Response
+  ProfileResponse? profileResponse;
+
+  /// isLoading
+  bool isLoading = true;
+
+  /// Profile API
+  Future<void> getProfileData() async {
+    try {
+      var response = await _homePresenter.getProfileData();
+      if (response!.data != null) {
+        isLoading = false;
+        profileResponse = response;
+        debugPrint('Welcome ${profileResponse!.data}');
+        debugPrint(
+            '====================================================== ImageURL');
+        debugPrint(
+            '=========> ${LocalKeys.baseUrl}/${profileResponse!.data!.profilePic}');
+        update();
+      }
+    } catch (e) {
+      isLoading = true;
+      debugPrint(e.toString());
+    }
+    update();
+  }
+
+  /// All [TextEditingController] =====================
+
+  /// variable stores firstname of user.
+  var firstName = TextEditingController();
+
+  /// variable stores lastname of user.
+  var lastName = TextEditingController();
+
+  /// variable stores firstname of user.
+  var userName = TextEditingController();
+
+  /// variable stores email of user
+  var emailId = TextEditingController();
+
+  /// firstNameError will null if firstName is valid.
+  String? firstNameError;
+
+  /// method to validate firstName of user.
+  void enterFirstName(String value) {
+    // firstName = value;
+    if (value.isNotEmpty) {
+      firstNameError = null;
+    } else {
+      firstNameError = 'fieldRequired'.tr;
+    }
+    update();
+  }
+
+  /// LastName ========================================
+
+  /// lastNameError will null if lastName is valid.
+  String? lastNameError;
+
+  /// method to validate [lastName] of user.
+  void enterLastName(String value) {
+    // lastName = value;
+    if (value.isNotEmpty) {
+      lastNameError = null;
+    } else {
+      lastNameError = 'fieldRequired'.tr;
+    }
+    update();
+  }
+
+  /// UserName ========================================
+
+  /// userNameError will null if userName is valid.
+  String? userNameError;
+
+  /// Is true when the email is valid.
+  bool isUserNameValid = true;
+
+  /// Check if the userName is taken or not.
+  bool isUserNameTaken = false;
+
+  /// Check if the userName is checked or not.
+  bool isUserNameChecked = false;
+
+  /// method to validate [userName] of user.
+  void enterUserName(String value) {
+    isUserNameTaken = false;
+    isUserNameChecked = false;
+    isUserNameValid = userName.text.isNotEmpty;
+    // userName = value;
+    if (value.isNotEmpty) {
+      userNameError = null;
+    } else {
+      userNameError = 'fieldRequired'.tr;
+    }
+    update();
+  }
+
+  /// Phone number =======================================
+
+  /// variable stores phone number with country code
+  var phoneNumber = TextEditingController();
+
+  /// PhoneNumber object
+  var pPhoneNumber = PhoneNumber(isoCode: 'IN');
+
+  /// variable stores only country code
+  String countryCode = 'IN';
+
+  /// check phone number is valid or not
+  bool isPhoneNumberValid = true;
+
+  /// Check if the phonenumber is taken or not.
+  bool isPhoneNumberTaken = true;
+
+  /// Check if the phonenumber is checked or not.
+  bool isPhoneNumberChecked = false;
+
+  /// phonenumber valid or not
+  void checkPhoneNumberValidity(bool isValid) {
+    isPhoneNumberValid = isValid;
+    debugPrint(isValid.toString());
+    update();
+  }
+
+  /// Store the validated phone number
+  void storePhoneNumber(PhoneNumber phone) {
+    countryCode = phone.dialCode.toString();
+    isPhoneNumberTaken = true;
+    debugPrint('$countryCode ${phoneNumber.text}');
+    update();
+  }
+
+  /// validate phone number API
+  ///
+  /// 6397308499 already registered number for testing
+  // Future<int?> validatePhoneNumberApi(
+  //     String phoneNumber, String countryCode) async {
+  //   var response = await _homePresenter.validatePhoneNumberApi(
+  //     phoneNumber: phoneNumber.split(' ').join(''),
+  //     countryCode: countryCode,
+  //   );
+  //   if (response.errorCode == 200) {
+  //     debugPrint(response.data);
+  //     return response.errorCode;
+  //   } else if (response.errorCode == 409) {
+  //     debugPrint(response.data);
+  //     return response.errorCode;
+  //   }
+  // }
+
+  /// Email ==============================================
+
+  /// Error text for email form field.
+  String? emailErrorText;
+
+  /// Is true when the email is valid.
+  bool isEmailValid = true;
+
+  /// Check if the email is valid or not.
+  void checkIfEmailIsValid(String value) {
+    isEmailValid = Utility.emailValidator(value);
+    emailErrorText = isEmailValid ? null : 'pleaseEnterValidEmail'.tr;
+    isEmailChecked = false;
+    update();
+  }
+
+  /// Check if the email is taken or not.
+  bool isEmailTaken = true;
+
+  /// Check if the email is checked or not.
+  bool isEmailChecked = false;
+
+  /// Validate Email code
+  // Future<int?> validateEmail({
+  //   String emailId = '',
+  //   required TypeOfEntry type,
+  // }) async {
+  //   var response = await _homePresenter.validateEmail(
+  //     emailId: emailId,
+  //     type: type,
+  //   );
+  //   if (!response.hasError) {
+  //     // Utility.showMessage(
+  //     //     response.data, MessageType.success, () => null, 'okay'.tr);
+  //     return response.errorCode;
+  //   } else {
+  //     Utility.showMessage(
+  //         response.data, MessageType.error, () => null, 'okay'.tr);
+  //     return response.errorCode;
+  //   }
+  // }
+
+  var imageBaseUrl = '';
+
+  /// Get guesttoken form local
+  Future<void> getSecureValue() async {
+    var configImageBaseUrl =
+        await _homePresenter.getSecureValue(LocalKeys.imageBaseUrl);
+    imageBaseUrl = configImageBaseUrl!;
+    update();
   }
 
   @override
-  void onClose() {
-    videoPlayerController!.dispose();
-    chewieController!.dispose();
-    super.onClose();
+  void onInit() async {
+    // debugPrint(
+    //     'Reusable video setup starts here...............................................................................');
+    // _setupData();
+
+    await getProfileData();
+    await getCollections(limit: '10', loading: false, offset: '1');
+
+    categoryList = moviesCategoryList;
+
+    lengthOfCategoryList = categoryList.length;
+
+    for (var i = 0; i < lengthOfCategoryList; i++) {
+      itemScrollControllerList!.add(ItemScrollController());
+      itemPositionsListenerList!.add(ItemPositionsListener.create());
+    }
+
+    super.onInit();
   }
+
+  /// favorite or another post in profile
+  int isFavoritePosts = 1;
+
+  /// open favorite or another post
+  void openFavPosts(int index) {
+    isFavoritePosts = index;
+    update();
+  }
+
+  /// bottom sheet
+  void addNewCollectionSheet() {
+    Get.bottomSheet<dynamic>(const AddCollectionContent());
+  }
+
+  /// first and last name of user
+  String? userFirstAndLastName = '';
+
+  /// username of user
+  String? userUsername = '';
+
+  /// get username
+  void getUsername() async {
+    userFirstAndLastName =
+        await _homePresenter.getSecureValue(LocalKeys.userFirstAndLastName);
+    userUsername = await _homePresenter.getSecureValue(LocalKeys.username);
+    update();
+  }
+
+  
 }

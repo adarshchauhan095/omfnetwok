@@ -46,7 +46,7 @@ class DownloadsView extends StatelessWidget {
                         focusedBorder: const OutlineInputBorder(
                             borderSide: BorderSide.none),
                         hintStyle: Styles.grey13,
-                        hintText: StringConstants.searchForAShowMovieGenreEtc,
+                        hintText:'searchForAShowMovieGenreEtc'.tr,
                         formBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(Dimens.seven),
                         ),
@@ -63,7 +63,7 @@ class DownloadsView extends StatelessWidget {
                     child: Padding(
                       padding: Dimens.edgeInsets35_0_15_0,
                       child: Text(
-                        StringConstants.download,
+                        'download'.tr,
                         style: Styles.primaryText18,
                       ),
                     ),
@@ -147,7 +147,7 @@ class DownloadsView extends StatelessWidget {
                             Align(
                               alignment: Alignment.center,
                               child: Text(
-                                StringConstants.introducingDownloadsForYou,
+                                'introducingDownloadsForYou'.tr,
                                 style: Styles.primaryText18,
                               ),
                             ),
@@ -161,7 +161,7 @@ class DownloadsView extends StatelessWidget {
                                         ? Dimens.edgeInsets100_0_100_0
                                         : Dimens.edgeInsets150_0_150_0,
                                 child: Text(
-                                  StringConstants.downloadInfo,
+                                  'downloadInfo'.tr,
                                   textAlign: TextAlign.center,
                                   style: Styles.secondaryText13,
                                 ),
@@ -176,7 +176,7 @@ class DownloadsView extends StatelessWidget {
                             Dimens.boxHeight20,
                             Center(
                               child: Text(
-                                StringConstants.noDownloadsYet,
+                               'noDownloadsYet'.tr,
                                 style: Styles.secondaryText18,
                               ),
                             ),

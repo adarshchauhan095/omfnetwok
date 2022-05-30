@@ -8,7 +8,7 @@ import 'package:omf_netflix/domain/domain.dart';
 
 /// API WRAPPER to call all the APIs and handle the error status codes
 class ApiWrapper {
-  final String _baseUrl = '';
+  final String _baseUrl = 'https://apiv1.fanzly.app/v3/';
 
   /// Method to make all the requests inside the app like GET, POST, PUT, Delete
   Future<ResponseModel> makeRequest(String url, Request request, dynamic data,
@@ -18,7 +18,7 @@ class ApiWrapper {
       switch (request) {
 
         /// Method to make the Get type request
-        case Request.GET:
+        case Request.get:
           {
             var uri = _baseUrl + url;
 
@@ -30,19 +30,19 @@ class ApiWrapper {
                     Uri.parse(uri),
                     headers: headers,
                   )
-                  .timeout(const Duration(seconds: 60));
+                  .timeout(const Duration(seconds: 120));
 
               Utility.closeDialog();
 
               Utility.printILog(uri);
-              return _returnResponse(response);
+              return returnResponse(response);
             } on TimeoutException catch (_) {
               Utility.closeDialog();
               return ResponseModel(
                   data: '{"message":"Request timed out"}', hasError: true);
             }
           }
-        case Request.POST:
+        case Request.post:
 
           /// Method to make the Post type request
           {
@@ -56,19 +56,19 @@ class ApiWrapper {
                     body: jsonEncode(data),
                     headers: headers,
                   )
-                  .timeout(const Duration(seconds: 60));
+                  .timeout(const Duration(seconds: 120));
 
               Utility.closeDialog();
 
               Utility.printILog(uri);
-              return _returnResponse(response);
+              return returnResponse(response);
             } on TimeoutException catch (_) {
               Utility.closeDialog();
               return ResponseModel(
                   data: '{"message":"Request timed out"}', hasError: true);
             }
           }
-        case Request.PUT:
+        case Request.put:
 
           /// Method to make the Put type request
           {
@@ -82,12 +82,12 @@ class ApiWrapper {
                     body: data,
                     headers: headers,
                   )
-                  .timeout(const Duration(seconds: 60));
+                  .timeout(const Duration(seconds: 120));
 
               Utility.closeDialog();
 
               Utility.printILog(uri);
-              return _returnResponse(response);
+              return returnResponse(response);
             } on TimeoutException catch (_) {
               Utility.closeDialog();
               return ResponseModel(
@@ -95,7 +95,7 @@ class ApiWrapper {
             }
           }
 
-        case Request.PATCH:
+        case Request.patch:
 
           /// Method to make the Patch type request
           {
@@ -109,12 +109,12 @@ class ApiWrapper {
                     body: jsonEncode(data),
                     headers: headers,
                   )
-                  .timeout(const Duration(seconds: 60));
+                  .timeout(const Duration(seconds: 120));
 
               Utility.closeDialog();
 
               Utility.printILog(uri);
-              return _returnResponse(response);
+              return returnResponse(response);
             } on TimeoutException catch (_) {
               Utility.closeDialog();
               return ResponseModel(
@@ -123,7 +123,7 @@ class ApiWrapper {
                   errorCode: 1000);
             }
           }
-        case Request.DELETE:
+        case Request.delete:
 
           /// Method to make the Delete type request
           {
@@ -138,13 +138,13 @@ class ApiWrapper {
                     body: data,
                     headers: headers,
                   )
-                  .timeout(const Duration(seconds: 60));
+                  .timeout(const Duration(seconds: 120));
 
               Utility.closeDialog();
 
               Utility.printILog(uri);
               Utility.printLog(response.body);
-              return _returnResponse(response);
+              return returnResponse(response);
             } on TimeoutException catch (_) {
               Utility.closeDialog();
               return ResponseModel(
@@ -166,24 +166,49 @@ class ApiWrapper {
   }
 
   /// Method to return the API response based upon the status code of the server
-  ResponseModel _returnResponse(http.Response response) {
+  ResponseModel returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
+      case 201:
+      case 202:
+      case 203:
+      case 205:
+      case 208:
         return ResponseModel(
             data: response.body,
             hasError: false,
             errorCode: response.statusCode);
+      case 400:
+      case 401:
+        if (response.statusCode == 401) {
+          // RouteManagement.goToLogin();
+        }
+        return ResponseModel(
+          data: response.body,
+          hasError: true,
+          errorCode: response.statusCode,
+        );
+      case 406:
+        if (response.statusCode == 406) {
+          // connect
+        }
+        return ResponseModel(
+          data: response.body,
+          hasError: true,
+          errorCode: response.statusCode,
+        );
+      case 409:
       case 500:
+      case 522:
         return ResponseModel(
             data: response.body,
             hasError: true,
             errorCode: response.statusCode);
-
       default:
-        return ResponseModel(data: response.body, hasError: true, errorCode: 0);
+        return ResponseModel(
+            data: response.body,
+            hasError: true,
+            errorCode: response.statusCode);
     }
   }
-
-  // var repository =
-  //     Repository(DeviceRepository(), DataRepository(ConnectHelper()));
 }

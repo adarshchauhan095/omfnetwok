@@ -2,8 +2,8 @@
 import 'package:get/get.dart';
 
 abstract class StringConstants {
-  static String appName = 'appName'.tr;
-  static String noInternet = 'noInternet'.tr;
+  static String appName = 'appName';
+  static String noInternet = 'noInternet';
   static String shouldBe6Characters = 'shouldBe6Characters'.tr;
   static String shouldHaveOneUppercaseLetter =
       'shouldHaveOneUppercaseLetter'.tr;
@@ -245,4 +245,33 @@ abstract class StringConstants {
   static String corporateInformation = 'corporateInformation'.tr;
   static String contactUs = 'contactUs'.tr;
   static String serviceCode = 'serviceCode'.tr;
+  static String enterYourPhoneNumber = 'enterYourPhoneNumber'.tr;
+  static String alreadyRegistered = 'alreadyRegistered'.tr;
+  static String resend = 'resend'.tr;
+
+  static String textHere = 'textHere';
+  static String addImage = 'addImage';
+  static String pleaseUploadTheImage = 'pleaseUploadTheImage';
+  static String submit = 'submit';
+
+  static String passwordNotMatch = 'passwordNotMatch';
+  static String oldPassword = 'oldPassword';
+  static String changeName = 'changeName';
+  static String changeEmail = 'changeEmail';
+  static String changeEmailInfo = 'changeEmailInfo';
+  static String changeYourMail = 'changeYourMail';
+  static String weHaveSentYouTheLinkTo = 'weHaveSentYouTheLinkTo';
+  static String youHaveSuccessfullyChangedYourPhoneNumber =
+      'youHaveSuccessfullyChangedYourPhoneNumber';
+  static String phoneNumberChanged = 'phoneNumberChanged';
+  static String deviceLog = 'deviceLog';
+  static String deviceLogInfo = 'deviceLogInfo';
+  static String whereYoureSignedIn = 'whereYoureSignedIn';
+  static String logoutFromAllDevices = 'logoutFromAllDevices';
+  static String yourDevices = 'yourDevices';
+  static String thisDevice = 'thisDevice';
+  static String newCollection = 'newCollection';
+  static String change = 'change';
+  static String notRegistered = 'notRegistered';
+  static String update = 'update';
 }

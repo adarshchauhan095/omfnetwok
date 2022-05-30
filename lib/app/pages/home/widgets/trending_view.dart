@@ -1,4 +1,3 @@
-import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:omf_netflix/app/app.dart';
@@ -6,7 +5,9 @@ import 'package:share/share.dart';
 
 /// UI of the Trending screen [TrendingView].
 class TrendingView extends StatelessWidget {
-  const TrendingView({Key? key}) : super(key: key);
+  const TrendingView({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) => GetBuilder<HomeController>(
@@ -14,94 +15,63 @@ class TrendingView extends StatelessWidget {
           web: Responsive.isWeb(context) ||
                   Responsive.isTablet(context) ||
                   Responsive.isMobile(context)
-              ? WebTrendingProducts()
+              ? const WebTrendingProducts()
               : Dimens.box0,
           android: PageView.builder(
-            onPageChanged: _controller.setPageIndex,
-            scrollDirection: Axis.vertical,
-            itemCount: _controller.trendingReel.length,
-            itemBuilder: (context, index) => Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.black),
-              ),
-              child: Stack(
-                children: [
-                  FutureBuilder(
-                      future: _controller.initializePlayer,
-                      builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.done) {
-                          return Stack(
-                            children: [
-                              GestureDetector(
-                                onTap: () {
-                                  _controller.playPause();
-                                },
-                                child: Chewie(
-                                  controller: _controller.chewieController!,
-                                ),
-                              ),
-                              _controller.play
-                                  ? GestureDetector(
-                                      onTap: () {
-                                        _controller.playPause();
-                                      },
-                                      child: Center(
-                                        child: Icon(
-                                          Icons.play_arrow,
-                                          size: Dimens.fifty,
-                                          color: ColorsValue.whiteColor,
-                                        ),
-                                      ),
-                                    )
-                                  : Dimens.box0,
-                            ],
-                          );
-                        } else {
-                          return Center(
-                            child: Image.file(_controller.assetFile!),
-                          );
-                        }
-                      }),
-                  Positioned(
-                    top: Dimens.eight,
-                    right: Dimens.eight,
-                    child: Container(
-                      color:
-                          ColorsValue.blackColor.withOpacity(Dimens.pointSeven),
-                      width: Dimens.thirty,
-                      height: Dimens.twenty,
-                      child: Center(
-                        child: Text(
-                          '18+',
-                          style: Styles.primaryText14,
-                        ),
-                      ),
+              onPageChanged: _controller.setPageIndex,
+              scrollDirection: Axis.vertical,
+              itemCount: _controller.videos.length,
+              itemBuilder: (context, index) => Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.black),
                     ),
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Flexible(
-                            flex: 8,
-                            child: Container(),
-                          ),
-                          Flexible(
-                            flex: 2,
-                            child: TrendingSideBar(
-                              index: index,
+                    child: Stack(
+                      children: [
+                        _controller.selectedIndex == 2
+                            ? FeedVideoPlayer(
+                                videoUrl: _controller.videos[index],
+                                key: Key(index.toString()),
+                              )
+                            : Dimens.box0,     
+                        Positioned(
+                          top: Dimens.eight,
+                          right: Dimens.eight,
+                          child: Container(
+                            color: ColorsValue.blackColor
+                                .withOpacity(Dimens.pointSeven),
+                            width: Dimens.thirty,
+                            height: Dimens.twenty,
+                            child: Center(
+                              child: Text(
+                                '18+',
+                                style: Styles.primaryText14,
+                              ),
                             ),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-          ),
+                          ),
+                        ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Flexible(
+                                  flex: 8,
+                                  child: Container(),
+                                ),
+                                Flexible(
+                                  flex: 2,
+                                  child: TrendingSideBar(
+                                    index: index,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  )),
         ),
       );
 }
@@ -135,32 +105,28 @@ class TrendingSideBar extends StatelessWidget {
               SideBarIcon(
                 icon: Padding(
                   padding: Dimens.edgeInsets12,
-                  child: Image.asset(
-                    AssetConstants.like,
-                    color: _controller.trendingReel[index].isLiked
-                        ? ColorsValue.primaryColor
-                        : ColorsValue.whiteColor,
-                  ),
+                  child: Image.asset(AssetConstants.like,
+                      color: ColorsValue.primaryColor
+                      // : ColorsValue.whiteColor,
+                      ),
                 ),
-                title: _controller.trendingReel[index].totalLikes,
+                title: '12',
                 onTap: () {
-                  _controller.makeFavorite(index);
+                  // _controller.makeFavorite(index);
                 },
               ),
               Dimens.boxHeight12,
               SideBarIcon(
                 icon: Padding(
                   padding: Dimens.edgeInsets15,
-                  child: Image.asset(
-                    AssetConstants.myList,
-                    color: _controller.trendingReel[index].isListed
-                        ? ColorsValue.primaryColor
-                        : ColorsValue.whiteColor,
-                  ),
+                  child: Image.asset(AssetConstants.myList,
+                      color: ColorsValue.primaryColor
+                      // : ColorsValue.whiteColor,
+                      ),
                 ),
                 title: StringConstants.myList,
                 onTap: () {
-                  _controller.addToMylist(index);
+                  // _controller.addToMylist(index);
                 },
               ),
               Dimens.boxHeight12,
@@ -173,19 +139,17 @@ class TrendingSideBar extends StatelessWidget {
                 ),
                 title: '',
                 onTap: () {
-                  Share.share(_controller.trendingReel[index].video);
+                  Share.share('');
                 },
               ),
               SideBarIcon(
                 icon: Icon(
-                  _controller.volumeDown ? Icons.volume_up : Icons.volume_off,
+                  0 == 0 ? Icons.volume_up : Icons.volume_off,
                   color: Colors.white,
                   size: Dimens.thirty,
                 ),
                 title: '',
-                onTap: () {
-                  _controller.mute();
-                },
+                onTap: () {},
               ),
             ],
           ),

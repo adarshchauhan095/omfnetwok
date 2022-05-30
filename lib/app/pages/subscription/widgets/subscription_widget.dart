@@ -174,7 +174,7 @@ class SubscriptionWidget extends StatelessWidget {
                               Responsive.isTablet(context) ||
                               Responsive.isMobile(context)) {
                             Get.back<void>();
-                            Get.bottomSheet(
+                            Get.bottomSheet<void>(
                               Container(
                                 height: Dimens.fourHundred,
                                 width: double.infinity,
@@ -187,7 +187,20 @@ class SubscriptionWidget extends StatelessWidget {
                               enableDrag: true,
                             );
                           }
-                        } else {}
+                        } else {
+                          Get.bottomSheet<void>(
+                            Container(
+                              height: Dimens.fourHundred,
+                              width: double.infinity,
+                              color: ColorsValue.greyBoxColor,
+                              child: SubscriptionSheet(),
+                            ),
+                            barrierColor:
+                                ColorsValue.blackColor.withOpacity(0.9),
+                            isDismissible: true,
+                            enableDrag: true,
+                          );
+                        }
                       },
                       child: Container(
                         height: Dimens.eighty,

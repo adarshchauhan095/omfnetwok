@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:omf_netflix/app/app.dart';
 
 /// ChangePasswordDialog is the bottom sheet Content widget for
@@ -34,13 +35,13 @@ class ChangedPasswordDialog extends StatelessWidget {
                 Responsive.isWeb(context) ||
                         Responsive.isTablet(context) ||
                         Responsive.isMobile(context)
-                    ? StringConstants.passwordChanged
-                    : StringConstants.changePassword,
+                    ? 'passwordChanged'.tr
+                    : 'changePassword'.tr,
                 style: Styles.primaryText23,
               ),
               Dimens.boxHeight10,
               Text(
-                StringConstants.youHaveSuccessfullyChangedYourPassword,
+              'youHaveSuccessfullyChangedYourPassword'.tr,
                 maxLines: 2,
                 style: Styles.primaryText16,
               ),

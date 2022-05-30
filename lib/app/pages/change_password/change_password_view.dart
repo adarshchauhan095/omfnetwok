@@ -22,7 +22,7 @@ class ChangePasswordView extends StatelessWidget {
           ),
           centerTitle: true,
           title: Text(
-            StringConstants.changePassword,
+            'changePassword'.tr,
             style: Styles.primaryText20,
           ),
         ),

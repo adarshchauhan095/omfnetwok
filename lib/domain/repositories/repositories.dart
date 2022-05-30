@@ -4,4 +4,5 @@
 ///
 /// Will be ignored for test since all are static values and would not change.
 export 'domain_repository.dart';
+export 'local_storage_keys.dart';
 export 'repository.dart';

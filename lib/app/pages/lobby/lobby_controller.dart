@@ -86,7 +86,7 @@ class LobbyController extends GetxController {
         autoInitialize: true,
         autoPlay: true,
         looping: false,
-        showOptions: true,
+        // showOptions: true,
         showControlsOnInitialize: false,
         allowMuting: true,
       );
@@ -96,7 +96,7 @@ class LobbyController extends GetxController {
         autoInitialize: true,
         autoPlay: true,
         looping: false,
-        showOptions: true,
+        // showOptions: true,
         showControlsOnInitialize: false,
         allowMuting: true,
       );
@@ -117,8 +117,8 @@ class LobbyController extends GetxController {
   bool isLiked = false;
 
   /// make the video faviorite
-  void makeFavorite() {
-    isLiked = !isLiked;
+  void makeFavorite(bool value) {
+    isLiked = value;
     update();
   }
 
@@ -129,12 +129,13 @@ class LobbyController extends GetxController {
 
   /// Open downloaded file
   Future getFile({String? url, String? fileName}) async {
-    Utility.showTextLoader('Downloading Please Wait...');
+    Utility.showLoader();
     final file = await downloadFile(url, fileName);
     if (file != null) {
       Utility.closeLoader();
       assetFile = File(file.path);
       videoPlayerInit('');
+      update();
       // await OpenFile.open(file.path);
     } else {
       Utility.closeLoader();
@@ -148,7 +149,7 @@ class LobbyController extends GetxController {
     final file = File('${appStorage.path}/$name');
 
     try {
-      final response = await Dio().get(
+      final response = await Dio().get<dynamic>(
         url!,
         options: Options(
             responseType: ResponseType.bytes,
@@ -181,11 +182,19 @@ class LobbyController extends GetxController {
       autoInitialize: true,
       autoPlay: true,
       looping: false,
-      showOptions: true,
+      // showOptions: true,
       showControlsOnInitialize: false,
       allowMuting: true,
     );
+    update();
+  }
 
+  /// lobby product, episode, morelike this strip
+  int? categoryNumber = 1;
+
+  /// change the category
+  void changeLobbyCategory(int index) {
+    categoryNumber = index;
     update();
   }
 
@@ -193,8 +202,7 @@ class LobbyController extends GetxController {
 
   @override
   void onInit() {
-    var movie = Get.arguments;
-
+    var movie = Get.arguments as String? ?? AssetConstants.movieLink;
     lobbyVideoController = VideoPlayerController.network('');
     chewieController = ChewieController(
         videoPlayerController: VideoPlayerController.network(''),
